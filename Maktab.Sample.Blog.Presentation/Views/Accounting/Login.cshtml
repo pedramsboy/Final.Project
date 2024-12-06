@@ -1,0 +1,16 @@
+@model LoginViewModel
+
+<form asp-action="LoginPost">
+    <div class="mb-3">
+        <label asp-for="UserName" class="form-label"></label>
+        <input asp-for="UserName" class="form-control" id="UsernameInput" aria-describedby="emailHelp">
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label"></label>
+        <input asp-for="Password" class="form-control" id="PasswordInput">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">SignIn</button>
+</form>
+<a type="button" asp-action="Register" class="btn btn-primary mt-2">Register Now!</a>
