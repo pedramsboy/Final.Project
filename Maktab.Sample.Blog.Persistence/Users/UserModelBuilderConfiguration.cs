@@ -19,13 +19,13 @@ public static class UserModelBuilderConfiguration
         
         builder.Entity<User>()
             .Property(u => u.FirstName)
-            .HasColumnType("varchar(100)")
+            .HasColumnType("Nvarchar(100)")
             .IsRequired()
             .IsUnicode();
         
         builder.Entity<User>()
             .Property(u => u.LastName)
-            .HasColumnType("varchar(100)")
+            .HasColumnType("Nvarchar(100)")
             .IsRequired()
             .IsUnicode();
 

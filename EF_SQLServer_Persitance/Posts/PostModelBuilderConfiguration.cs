@@ -30,14 +30,20 @@ public static class PostModelBuilderConfiguration
         
         builder.Entity<Post>()
             .Property(u => u.Title)
-            .HasColumnType("varchar(200)")
+            .HasColumnType("Nvarchar(200)")
             .IsRequired()
             .IsUnicode();
         
         builder.Entity<Post>()
             .Property(u => u.PostText)
-            .HasColumnType("text")
+            .HasColumnType("Nvarchar(Max)")
             .IsRequired()
             .IsUnicode();
+
+        //builder.Entity<Post>()
+        //    .Property(u => u.PostText)
+        //    .HasColumnType("text")
+        //    .IsRequired()
+        //    .IsUnicode();
     }
 }
