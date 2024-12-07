@@ -40,7 +40,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
             if (user == null)
                 throw new ItemNotFoundException(nameof(User));
 
-            var infirmary = new Infirmary(command.InfirmaryName, command.SupportedInsurance, command.State, command.City, command.Street, command.PhoneNumber);
+            var infirmary = new Infirmary(command.InfirmaryName, command.SupportedInsurance, command.State, command.City, command.Street, command.PhoneNumber,command.IsAroundTheClock);
             await _repository.AddAsync(infirmary);
             return new GeneralResult
             {

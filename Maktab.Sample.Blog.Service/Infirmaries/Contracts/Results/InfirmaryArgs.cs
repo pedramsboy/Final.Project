@@ -1,5 +1,6 @@
 ﻿using Maktab.Sample.Blog.Abstraction.Service;
 using Maktab.Sample.Blog.Domain.Infirmaries;
+using Maktab.Sample.Blog.Service.Comments.Contracts.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,8 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results
         public string City { get; set; }
         public string Street { get; set; }
         public string PhoneNumber { get; set; }
-        public Boolean IsActive { get; set; }
+
+       // public List<DepartmentArgs> Departments { get; set; } = new();
         public Boolean IsAroundTheClock { get; set; }
 
         public enum InfirmaryClassification
@@ -52,9 +54,8 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results
                 City = infirmary.City,
                 Street = infirmary.Street,
                 PhoneNumber = infirmary.PhoneNumber,
-                IsActive = infirmary.IsActive,
                 IsAroundTheClock = infirmary.IsAroundTheClock,
-                //Departments = Infirmary.Departments.Select(c => c.MapToDepartmentArgs()).ToList(),
+                //Departments = Infirmary.Departments.Select(d => d.MapToDepartmentArgs()).ToList(),
 
             };
         }

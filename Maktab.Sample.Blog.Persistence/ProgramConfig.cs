@@ -1,6 +1,8 @@
-﻿using Maktab.Sample.Blog.Domain.Posts;
+﻿using Maktab.Sample.Blog.Domain.Infirmaries;
+using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Domain.Roles;
 using Maktab.Sample.Blog.Domain.Users;
+using Maktab.Sample.Blog.Persistence.Infirmaries;
 using Maktab.Sample.Blog.Persistence.Posts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +22,7 @@ namespace Maktab.Sample.Blog.Persistence
 
 
             services.AddScoped<IPostRepository, PostRepository>();
-        
+            services.AddScoped<IInfirmaryRepository, InfirmaryRepository>();
 
         }
     }

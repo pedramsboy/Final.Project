@@ -13,37 +13,37 @@ public static class InfirmaryModelBuilderConfiguration
 
         builder.Entity<Infirmary>()
             .Property(i => i.InfirmaryName)
-            .HasColumnType("varchar(200)")
+            .HasColumnType("Nvarchar(200)")
             .IsRequired()
             .IsUnicode();
 
         builder.Entity<Infirmary>()
             .Property(i => i.SupportedInsurance)
-            .HasColumnType("text")
+            .HasColumnType("Nvarchar(500)")
             .IsRequired()
             .IsUnicode();
 
         builder.Entity<Infirmary>()
             .Property(i => i.State)
-            .HasColumnType("varchar(200)")
+            .HasColumnType("Nvarchar(200)")
             .IsRequired()
             .IsUnicode();
 
         builder.Entity<Infirmary>()
             .Property(i => i.City)
-            .HasColumnType("varchar(200)")
+            .HasColumnType("Nvarchar(200)")
             .IsRequired()
             .IsUnicode();
 
         builder.Entity<Infirmary>()
             .Property(i => i.Street)
-            .HasColumnType("varchar(200)")
+            .HasColumnType("Nvarchar(200)")
             .IsRequired()
             .IsUnicode();
 
         builder.Entity<Infirmary>()
             .Property(i => i.PhoneNumber)
-            .HasColumnType("varchar(200)")
+            .HasColumnType("Nvarchar(200)")
             .IsRequired()
             .IsUnicode();
     }

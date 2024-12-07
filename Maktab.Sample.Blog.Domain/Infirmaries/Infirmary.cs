@@ -10,7 +10,7 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
 {
     public class Infirmary : BaseEntity
     {
-        public Infirmary(string infirmaryName, string supportedInsurance, string state, string city, string street, string phoneNumber)
+        public Infirmary(string infirmaryName, string supportedInsurance, string state, string city, string street, string phoneNumber,bool isAroundTheClock)
         {
             InfirmaryName = infirmaryName;
             SupportedInsurance = supportedInsurance;
@@ -18,6 +18,7 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
             City = city;
             Street = street;
             PhoneNumber = phoneNumber;
+            IsAroundTheClock = isAroundTheClock;
             Validate();
         }
         /// <summary>
@@ -52,10 +53,7 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
         /// Phone Number of The Infirmary
         /// </summary>
         public string PhoneNumber { get; set; } = string.Empty;
-        /// <summary>
-        /// Check IF The Infiramary is Active or Not
-        /// </summary>
-        public Boolean IsActive { get; set; }
+        
         /// <summary>
         /// Does Work Over Night or Not
         /// </summary>
@@ -79,7 +77,7 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
         /// <summary>
         /// Each Infirmary Has a List of Departments
         /// </summary>
-        //public virtual ICollection<Department> Departments { get; set; } = new List<Department>();
+        //public List<Department> Departments { get; set; } = new ();
         protected override void Validate()
         {
             if (string.IsNullOrWhiteSpace(InfirmaryName))
@@ -100,12 +98,10 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
             if (string.IsNullOrWhiteSpace(PhoneNumber))
                 throw new EmptyPhoneNumberException();
 
-            if (string.IsNullOrWhiteSpace(SupportedInsurance))
-                throw new EmptySupportedInsuranceException();
 
         }
 
-        public void SetInfirmaryInfo(string infirmaryName, string supportedInsurance, string state, string city, string street, string phoneNumber)
+        public void SetInfirmaryInfo(string infirmaryName, string supportedInsurance, string state, string city, string street, string phoneNumber, bool isAroundTheClock)
         {
             if (!string.IsNullOrWhiteSpace(infirmaryName))
                 InfirmaryName = infirmaryName;
@@ -124,6 +120,8 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
 
             if (!string.IsNullOrWhiteSpace(phoneNumber))
                 PhoneNumber = phoneNumber;
+
+            IsAroundTheClock = isAroundTheClock;
         }
     }
 }
