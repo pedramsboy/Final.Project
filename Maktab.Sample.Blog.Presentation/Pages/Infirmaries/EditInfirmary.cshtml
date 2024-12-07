@@ -1,0 +1,46 @@
+﻿@page
+@model Maktab.Sample.Blog.Presentation.Pages.Infirmaries.EditInfirmaryModel
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+}
+
+<form method="post" asp-page-handler="Update">
+    <div class="mb-3">
+        <label asp-for="UpdateInfirmaryModel.InfirmaryName" class="form-label">Infirmary Name</label>
+        <input asp-for="UpdateInfirmaryModel.InfirmaryName" class="form-control" id="infirmaryNameInput">
+        <span asp-validation-for="UpdateInfirmaryModel.InfirmaryName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="UpdateInfirmaryModel.SupportedInsurance" class="form-label">Supported Insurance</label>
+        <input asp-for="UpdateInfirmaryModel.SupportedInsurance" class="form-control" id="supportedInsuranceInput">
+        <span asp-validation-for="UpdateInfirmaryModel.SupportedInsurance" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="UpdateInfirmaryModel.State" class="form-label">State</label>
+        <input asp-for="UpdateInfirmaryModel.State" class="form-control" id="stateInput">
+        <span asp-validation-for="UpdateInfirmaryModel.State" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="UpdateInfirmaryModel.City" class="form-label">City</label>
+        <input asp-for="UpdateInfirmaryModel.City" class="form-control" id="cityInput">
+        <span asp-validation-for="UpdateInfirmaryModel.City" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="UpdateInfirmaryModel.Street" class="form-label">Street</label>
+        <input asp-for="UpdateInfirmaryModel.Street" class="form-control" id="streetInput">
+        <span asp-validation-for="UpdateInfirmaryModel.Street" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="UpdateInfirmaryModel.PhoneNumber" class="form-label">Phone Number</label>
+        <input asp-for="UpdateInfirmaryModel.PhoneNumber" class="form-control" id="phoneNumberInput">
+        <span asp-validation-for="UpdateInfirmaryModel.PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3 d-none">
+        <input asp-for="UpdateInfirmaryModel.Id" class="form-control" id="infirmaryIdInput">
+    </div>
+    <button type="submit" class="btn btn-outline-info">Update</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Cancel</a>
+</form>

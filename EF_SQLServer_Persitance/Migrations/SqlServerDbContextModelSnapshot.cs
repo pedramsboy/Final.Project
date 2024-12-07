@@ -66,6 +66,9 @@ namespace EF_SQLServer_Persitance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -82,9 +85,6 @@ namespace EF_SQLServer_Persitance.Migrations
                     b.Property<string>("InfirmaryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsAroundTheClock")
                         .HasColumnType("bit");
@@ -115,6 +115,8 @@ namespace EF_SQLServer_Persitance.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Infirmaries");
                 });
@@ -431,8 +433,18 @@ namespace EF_SQLServer_Persitance.Migrations
 
                     b.HasOne("Maktab.Sample.Blog.Domain.Posts.Post", null)
                         .WithMany("Comments")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PostId");
+
+                    b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Infirmaries.Infirmary", b =>
+                {
+                    b.HasOne("Maktab.Sample.Blog.Domain.Users.User", "Author")
+                        .WithMany("Infirmaries")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Author");
                 });
@@ -441,8 +453,7 @@ namespace EF_SQLServer_Persitance.Migrations
                 {
                     b.HasOne("Maktab.Sample.Blog.Domain.Posts.Post", null)
                         .WithMany("Likes")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PostId");
 
                     b.HasOne("Maktab.Sample.Blog.Domain.Users.User", null)
                         .WithMany("Likes")
@@ -522,6 +533,8 @@ namespace EF_SQLServer_Persitance.Migrations
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Users.User", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Infirmaries");
 
                     b.Navigation("Likes");
 

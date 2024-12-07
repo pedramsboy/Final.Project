@@ -1,4 +1,5 @@
 using Maktab.Sample.Blog.Domain.Comments;
+using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Domain.Likes;
 using Maktab.Sample.Blog.Domain.Posts;
 using Microsoft.AspNetCore.Identity;
@@ -27,6 +28,7 @@ public class User : IdentityUser<Guid>
     public List<Post> Posts { get; set; } = new();
     public List<Comment> Comments { get; set; } = new();
     public List<Like> Likes { get; set; } = new();
+    public List<Infirmary> Infirmaries { get; set; } = new();
 
     /// <summary>
     /// The Date Time  of The Data Has Been Created

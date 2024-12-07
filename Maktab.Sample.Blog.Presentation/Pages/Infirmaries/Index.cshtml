@@ -1,0 +1,102 @@
+﻿@page
+@model Maktab.Sample.Blog.Presentation.Pages.Infirmaries.IndexModel
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+}
+
+<form method="post" asp-page-handler="Create">
+    <div class="mb-3">
+        <label asp-for="AddInfirmaryModel.InfirmaryName" class="form-label">Infirmary Name</label>
+        <input asp-for="AddInfirmaryModel.InfirmaryName" class="form-control" id="infirmaryNameInput">
+        <span asp-validation-for="AddInfirmaryModel.InfirmaryName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AddInfirmaryModel.SupportedInsurance" class="form-label">Supported Insurance</label>
+        <input asp-for="AddInfirmaryModel.SupportedInsurance" class="form-control" id="supportedInsuranceInput">
+        <span asp-validation-for="AddInfirmaryModel.SupportedInsurance" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AddInfirmaryModel.State" class="form-label">State</label>
+        <input asp-for="AddInfirmaryModel.State" class="form-control" id="stateInput">
+        <span asp-validation-for="AddInfirmaryModel.State" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AddInfirmaryModel.City" class="form-label">City</label>
+        <input asp-for="AddInfirmaryModel.City" class="form-control" id="cityInput">
+        <span asp-validation-for="AddInfirmaryModel.City" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AddInfirmaryModel.Street" class="form-label">Street</label>
+        <input asp-for="AddInfirmaryModel.Street" class="form-control" id="streetInput">
+        <span asp-validation-for="AddInfirmaryModel.Street" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AddInfirmaryModel.PhoneNumber" class="form-label">Phone Number</label>
+        <input asp-for="AddInfirmaryModel.PhoneNumber" class="form-control" id="phoneNumberInput">
+        <span asp-validation-for="AddInfirmaryModel.PhoneNumber" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+@{
+    var counter = 1;
+}
+
+@foreach (var infirmary in Model.InfirmariesModel)
+{
+    <div class="card mt-2 position-relative">
+        <div class="btn-group dropstart position-absolute top-0 end-0">
+            <button type="button" class="btn btn-secondary bg-transparent border-0 text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-page="EditInfirmary" asp-route-infirmaryId="@infirmary.Id" asp-route-maktab="114">Edit Infirmary</a></li>
+                <li><a class="dropdown-item text-danger" onclick="ShowDeleteModal('@infirmary.Id')" href="#">Delete Infirmary</a></li>
+            </ul>
+        </div>
+        <div class="card-img-top" style="height: 400px; background-image: url('Hospital_Pic_3.png'); background-repeat: no-repeat; background-position: center; background-size: cover"></div>
+        <div class="card-body">
+            <h5 class="card-title">@infirmary.InfirmaryName</h5>
+            <p class="card-text">@infirmary.SupportedInsurance</p>
+            <p class="card-text">@infirmary.State</p>
+            <p class="card-text">@infirmary.City</p>
+            <p class="card-text">@infirmary.Street</p>
+            <p class="card-text">@infirmary.PhoneNumber</p>
+            <p class="card-text">@infirmary.IsAroundTheClock</p>
+            <p class="card-text">Author: @infirmary.Author!.GetFullName()</p>
+        </div>
+    </div>
+}
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Infirmary</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete this Infirmary?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="post" asp-page-handler="Delete">
+                    <div class="mb-3 d-none">
+                        <input name="InfirmaryId" class="form-control" id="infirmaryIdInput">
+                    </div>
+                    <button type="submit" class="btn btn-danger">Yes, Delete Infirmary.</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function ShowDeleteModal(infirmaryId) {
+        let input = document.getElementById("infirmaryIdInput");
+        console.log(input)
+        input.setAttribute("value", infirmaryId);
+        let modal = new bootstrap.Modal(document.getElementById("delete-modal"));
+        modal.show();
+    }
+</script>

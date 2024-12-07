@@ -1,6 +1,8 @@
 ﻿using Maktab.Sample.Blog.Abstraction.Service;
 using Maktab.Sample.Blog.Domain.Infirmaries;
+using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Service.Comments.Contracts.Results;
+using Maktab.Sample.Blog.Service.Users.Contracts.Result;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +39,8 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results
             ImagingCenter,
             Clinic
         }
+
+        public UserArgs? Author { get; set; }
     }
 
     public static class InfirmaryArgsMapper
@@ -55,6 +59,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results
                 Street = infirmary.Street,
                 PhoneNumber = infirmary.PhoneNumber,
                 IsAroundTheClock = infirmary.IsAroundTheClock,
+                Author = infirmary.Author?.MapToUserArgs(),
                 //Departments = Infirmary.Departments.Select(d => d.MapToDepartmentArgs()).ToList(),
 
             };

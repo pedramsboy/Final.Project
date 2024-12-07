@@ -40,7 +40,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
             if (user == null)
                 throw new ItemNotFoundException(nameof(User));
 
-            var infirmary = new Infirmary(command.InfirmaryName, command.SupportedInsurance, command.State, command.City, command.Street, command.PhoneNumber,command.IsAroundTheClock);
+            var infirmary = new Infirmary(command.InfirmaryName, command.SupportedInsurance, command.State, command.City, command.Street, command.PhoneNumber,command.IsAroundTheClock, user.Id);
             await _repository.AddAsync(infirmary);
             return new GeneralResult
             {
@@ -56,38 +56,45 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
             var infirmary = await _repository.GetAsync(id);
 
             if (infirmary == null)
-                throw new ItemNotFoundException(nameof(Post));
+                throw new ItemNotFoundException(nameof(infirmary));
 
             await _repository.SoftDeleteAsync(id);
         }
 
-        public  Task<List<InfirmaryArgs>> GetAllInfirmariesAsync(Expression<Func<Infirmary, bool>> predicate)
+        public async Task<List<InfirmaryArgs>> GetAllInfirmariesAsync(Expression<Func<Infirmary, bool>> predicate=null)
         {
-            //var infirmaries = await _repository.QueryAsync(predicate ?? (i => true), include: i => p.Include(x => x.Author)
-            //                                                                               .Include(x => x.Comments)
-            //                                                                               .Include(x => x.Likes));
-            //return infirmaries.Select(i => i.MapToInfirmaryArgs()).ToList();
-            throw new NotImplementedException();
+            var infirmaries = await _repository.QueryAsync(predicate ?? (p => true), include: p => p.Include(x => x.Author));
+            return infirmaries.Select(i => i.MapToInfirmaryArgs()).ToList();
         }
     
 
-        public  Task<InfirmaryArgs> GetInfirmaryByIdAsync(Guid id)
+        public async Task<InfirmaryArgs> GetInfirmaryByIdAsync(Guid id)
         {
-            //var post = await _repository.GetAsync(id,
-            // include: p => p.Include(x => x.Author)
-            // .Include(x => x.Comments)
-            // .Include(x => x.Likes));
+            var infirmary = await _repository.GetAsync(id,
+            include: i => i.Include(x => x.Author));
 
-            //if (post == null)
-            //    throw new ItemNotFoundException(nameof(Post));
+            if (infirmary == null)
+                throw new ItemNotFoundException(nameof(Infirmary));
 
-            //return post.MapToPostArgs();
-            throw new NotImplementedException();
+            return infirmary.MapToInfirmaryArgs();
         }
 
-        public Task UpdateInfirmaryAsync(UpdateInfirmaryCommand command, string userName)
+        public async Task UpdateInfirmaryAsync(UpdateInfirmaryCommand command, string userName)
         {
-            throw new NotImplementedException();
+            var infirmary = await _repository.GetAsync(command.Id, false);
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null)
+                throw new ItemNotFoundException(nameof(User));
+
+            if (infirmary == null)
+                throw new ItemNotFoundException(nameof(Infirmary));
+
+            if (infirmary.AuthorId != user.Id)
+                throw new PermissionDeniedException();
+
+            infirmary.SetInfirmaryInfo(command.InfirmaryName, command.SupportedInsurance, command.State, command.City, command.Street, command.PhoneNumber, command.IsAroundTheClock);
+
+            await _repository.UpdateAsync(infirmary);
         }
     }
 }

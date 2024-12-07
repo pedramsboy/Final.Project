@@ -57,3 +57,10 @@ public class EmptyPhoneNumberException : BaseEmptyArgumentException
     }
 }
 
+public class EmptyAuthorIdException : BaseEmptyArgumentException
+{
+    public EmptyAuthorIdException() : base("Author id", 7)
+    {
+    }
+}
+

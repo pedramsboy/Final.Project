@@ -6,6 +6,7 @@ using Maktab.Sample.Blog.Persistence;
 using Maktab.Sample.Blog.Persistence.Posts;
 using Maktab.Sample.Blog.Presentation.MapsterConfiguration;
 using Maktab.Sample.Blog.Service.Configurations;
+using Maktab.Sample.Blog.Service.Infirmaries;
 using Maktab.Sample.Blog.Service.Posts;
 using Maktab.Sample.Blog.Service.Users;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -29,6 +30,7 @@ MapsterConfig.RegisterMapping();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IInfirmaryService, InfirmaryService>();
 
 builder.Services.AddIdentity<User, Role>(options =>
     {

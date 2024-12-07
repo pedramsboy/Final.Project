@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_SQLServer_Persitance.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    [Migration("20241118181130_init")]
-    partial class init
+    [Migration("20241207171045_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,67 @@ namespace EF_SQLServer_Persitance.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Infirmaries.Infirmary", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Classification")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InfirmaryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAroundTheClock")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SupportedInsurance")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Infirmaries");
                 });
 
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Likes.Like", b =>
@@ -120,12 +181,12 @@ namespace EF_SQLServer_Persitance.Migrations
                     b.Property<string>("PostText")
                         .IsRequired()
                         .IsUnicode(true)
-                        .HasColumnType("text");
+                        .HasColumnType("Nvarchar(Max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .IsUnicode(true)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("Nvarchar(200)");
 
                     b.HasKey("Id");
 
@@ -203,7 +264,7 @@ namespace EF_SQLServer_Persitance.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .IsUnicode(true)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("Nvarchar(100)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -211,7 +272,7 @@ namespace EF_SQLServer_Persitance.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .IsUnicode(true)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("Nvarchar(100)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -375,8 +436,18 @@ namespace EF_SQLServer_Persitance.Migrations
 
                     b.HasOne("Maktab.Sample.Blog.Domain.Posts.Post", null)
                         .WithMany("Comments")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PostId");
+
+                    b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Infirmaries.Infirmary", b =>
+                {
+                    b.HasOne("Maktab.Sample.Blog.Domain.Users.User", "Author")
+                        .WithMany("Infirmaries")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Author");
                 });
@@ -385,8 +456,7 @@ namespace EF_SQLServer_Persitance.Migrations
                 {
                     b.HasOne("Maktab.Sample.Blog.Domain.Posts.Post", null)
                         .WithMany("Likes")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PostId");
 
                     b.HasOne("Maktab.Sample.Blog.Domain.Users.User", null)
                         .WithMany("Likes")
@@ -466,6 +536,8 @@ namespace EF_SQLServer_Persitance.Migrations
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Users.User", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Infirmaries");
 
                     b.Navigation("Likes");
 

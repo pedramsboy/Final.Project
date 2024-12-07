@@ -1,5 +1,6 @@
 ﻿using Maktab.Sample.Blog.Abstraction.Domain;
 using Maktab.Sample.Blog.Domain.Posts;
+using Maktab.Sample.Blog.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
 {
     public class Infirmary : BaseEntity
     {
-        public Infirmary(string infirmaryName, string supportedInsurance, string state, string city, string street, string phoneNumber,bool isAroundTheClock)
+        public Infirmary(string infirmaryName, string supportedInsurance, string state, string city, string street, string phoneNumber,bool isAroundTheClock, Guid authorId)
         {
             InfirmaryName = infirmaryName;
             SupportedInsurance = supportedInsurance;
@@ -19,8 +20,11 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
             Street = street;
             PhoneNumber = phoneNumber;
             IsAroundTheClock = isAroundTheClock;
+            AuthorId = authorId;
             Validate();
         }
+
+        
         /// <summary>
         /// Name Of The Infirmary
         /// </summary>
@@ -75,6 +79,15 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
         }
 
         /// <summary>
+        /// Id of The User Who Created This Infirmary
+        /// </summary>
+        public Guid AuthorId { get; private set; }
+        /// <summary>
+        /// Object Instance of The User Who Created This Infirmary
+        /// </summary>
+        public User Author { get; private set; }
+
+        /// <summary>
         /// Each Infirmary Has a List of Departments
         /// </summary>
         //public List<Department> Departments { get; set; } = new ();
@@ -97,6 +110,9 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
 
             if (string.IsNullOrWhiteSpace(PhoneNumber))
                 throw new EmptyPhoneNumberException();
+
+            if (AuthorId == null || AuthorId == Guid.Empty)
+                throw new EmptyAuthorIdException();
 
 
         }
