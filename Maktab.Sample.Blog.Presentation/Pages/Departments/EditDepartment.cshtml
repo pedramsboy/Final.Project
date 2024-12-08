@@ -1,0 +1,25 @@
+﻿@page
+@model Maktab.Sample.Blog.Presentation.Pages.Departments.EditDepartmentModel
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+}
+
+<form method="post" asp-page-handler="Update">
+    <div class="mb-3">
+        <label asp-for="UpdateDepartmentModel.DepartmentName" class="form-label">Department Name</label>
+        <input asp-for="UpdateDepartmentModel.DepartmentName" class="form-control" id="departmentNameInput">
+        <span asp-validation-for="UpdateDepartmentModel.DepartmentName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="UpdateDepartmentModel.DepartmentService" class="form-label">Department Service</label>
+        <input asp-for="UpdateDepartmentModel.DepartmentService" class="form-control" id="departmentServiceInput">
+        <span asp-validation-for="UpdateDepartmentModel.DepartmentService" class="text-danger"></span>
+    </div>
+    <div class="mb-3 d-none">
+        <input asp-for="UpdateDepartmentModel.Id" class="form-control" id="postIdInput">
+    </div>
+    <button type="submit" class="btn btn-outline-info">Update</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Cancel</a>
+</form>

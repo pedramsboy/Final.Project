@@ -79,6 +79,13 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
         }
 
         /// <summary>
+        /// Each Infirmary Has a List of Departments
+        /// </summary>
+        //public List<Department> Departments { get; set; } = new ();
+
+
+        ///********************* navigation properties ********************/
+        /// <summary>
         /// Id of The User Who Created This Infirmary
         /// </summary>
         public Guid AuthorId { get; private set; }
@@ -87,10 +94,7 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
         /// </summary>
         public User Author { get; private set; }
 
-        /// <summary>
-        /// Each Infirmary Has a List of Departments
-        /// </summary>
-        //public List<Department> Departments { get; set; } = new ();
+       
         protected override void Validate()
         {
             if (string.IsNullOrWhiteSpace(InfirmaryName))

@@ -186,4 +186,10 @@
   <data name="SupportedInsurance" xml:space="preserve">
     <value>Supported Incurance</value>
   </data>
+  <data name="DepartmentNameProp" xml:space="preserve">
+    <value>Department name</value>
+  </data>
+  <data name="DepartmentServiceProp" xml:space="preserve">
+    <value>Department Service</value>
+  </data>
 </root>

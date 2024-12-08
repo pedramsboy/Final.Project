@@ -1,5 +1,6 @@
 using Maktab.Sample.Blog.Presentation.Models.Accounting;
 using Maktab.Sample.Blog.Presentation.Pages.Models;
+using Maktab.Sample.Blog.Service.Departments.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Users.Contracts.Commands;
@@ -19,5 +20,7 @@ public static class MapsterConfig
             .Map(dest => dest.Title, src => src.PostTitle);
 
         TypeAdapterConfig<UpdateInfirmaryModel, UpdateInfirmaryCommand>.NewConfig();
+
+        TypeAdapterConfig<UpdateDepartmentModel, UpdateDepartmentCommand>.NewConfig();
     }
 }

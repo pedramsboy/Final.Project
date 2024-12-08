@@ -1,4 +1,5 @@
 using Maktab.Sample.Blog.Abstraction.Domain;
+using Maktab.Sample.Blog.Domain.Patients;
 using Maktab.Sample.Blog.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -40,6 +41,14 @@ public static class UserModelBuilderConfiguration
             .WithOne()
             .HasForeignKey("UserId")
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<User>()
+            .HasMany(u => u.Departments)
+            .WithOne(d => d.Author)
+            .HasForeignKey(d => d.AuthorId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+       
     }
 }
 

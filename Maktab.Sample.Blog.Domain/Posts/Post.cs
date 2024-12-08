@@ -14,11 +14,29 @@ public class Post : BaseEntity
         AuthorId = authorId;
         Validate();
     }
+    /// <summary>
+    /// Title of The Post
+    /// </summary>
     public string Title { get; private set; }
+    /// <summary>
+    /// Text of The Post
+    /// </summary>
     public string PostText { get; private set; }
+    /// <summary>
+    /// Id of The Athor for Navigation Purposes
+    /// </summary>
     public Guid AuthorId { get; private set; }
+    /// <summary>
+    /// An Instance of The User Object for Navigation Purposes
+    /// </summary>
     public User Author { get; private set; }
+    /// <summary>
+    /// Each Post Can Be Consists of List of Comments
+    /// </summary>
     public List<Comment> Comments { get; private set; } = new();
+    /// <summary>
+    /// Each Post Can Be Consists of List of Comments
+    /// </summary>
     public List<Like> Likes { get; private set; } = new();
     
     protected override void Validate()

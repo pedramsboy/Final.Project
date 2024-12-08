@@ -1,6 +1,8 @@
 using Maktab.Sample.Blog.Domain.Comments;
+using Maktab.Sample.Blog.Domain.Departments;
 using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Domain.Likes;
+using Maktab.Sample.Blog.Domain.Patients;
 using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Domain.Roles;
 using Maktab.Sample.Blog.Domain.Users;
@@ -28,7 +30,8 @@ public class BlogDbContext : IdentityDbContext<User, Role, Guid>
     public DbSet<Like> Likes { get; set; }
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Infirmary> Infirmaries { get; set; }
-
+    public DbSet<Department> Departments { get; set; }
+    public DbSet<Patient> Patients { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)

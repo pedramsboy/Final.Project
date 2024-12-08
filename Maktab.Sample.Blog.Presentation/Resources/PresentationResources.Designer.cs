@@ -70,6 +70,24 @@ namespace Maktab.Sample.Blog.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Department name.
+        /// </summary>
+        public static string DepartmentNameProp {
+            get {
+                return ResourceManager.GetString("DepartmentNameProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Department Service.
+        /// </summary>
+        public static string DepartmentServiceProp {
+            get {
+                return ResourceManager.GetString("DepartmentServiceProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string EmailProp {
