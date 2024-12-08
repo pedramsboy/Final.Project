@@ -27,7 +27,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Infirmaries
         
         public async Task OnGetAsync()
         {
-            InfirmariesModel = await _infirmaryService.GetAllInfirmariesAsync(p => true);
+            InfirmariesModel = await _infirmaryService.GetAllInfirmariesAsync(p=> true);
         }
 
         public AddInfirmaryModel AddInfirmaryModel { get; set; }

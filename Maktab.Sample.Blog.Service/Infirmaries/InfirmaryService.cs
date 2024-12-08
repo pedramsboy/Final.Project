@@ -58,7 +58,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
             if (infirmary == null)
                 throw new ItemNotFoundException(nameof(infirmary));
 
-            await _repository.SoftDeleteAsync(id);
+            await _repository.HardDeleteAsync(id);
         }
 
         public async Task<List<InfirmaryArgs>> GetAllInfirmariesAsync(Expression<Func<Infirmary, bool>> predicate=null)
