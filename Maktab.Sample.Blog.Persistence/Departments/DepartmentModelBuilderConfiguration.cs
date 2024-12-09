@@ -16,9 +16,9 @@ public static class DepartmentModelBuilderConfiguration
             .OnDelete(DeleteBehavior.Cascade);
 
         //builder.Entity<Department>()
-        //    .HasMany(d => d.Infirmary)
-        //    .WithOne(i=>i.Departments)
-        //    .HasForeignKey("PostId")
+        //    .HasOne(d => d.Infirmary)
+        //    .WithMany(i => i.Departments)
+        //    .HasForeignKey(d=>d.InfirmaryId)
         //    .OnDelete(DeleteBehavior.Cascade);
 
 

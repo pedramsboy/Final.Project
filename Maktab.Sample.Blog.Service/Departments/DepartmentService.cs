@@ -24,15 +24,15 @@ namespace Maktab.Sample.Blog.Service.Departments
     {
 
         private readonly IDepartmentRepository _repository;
-        private readonly IInfirmaryRepository _infirmaryRepository;
+        //private readonly IInfirmaryRepository _infirmaryRepository;
         private readonly UserManager<User> _userManager;
         private readonly InternalGrantsSettings _grants;
         private readonly InternalGrantsSettings _grantsSettings;
 
-        public DepartmentService(IDepartmentRepository repository, IInfirmaryRepository infirmaryRepository, UserManager<User> userManager, InternalGrantsSettings grants, IOptions<InternalGrantsSettings> settings)
+        public DepartmentService(IDepartmentRepository repository/*, IInfirmaryRepository infirmaryRepository*/, UserManager<User> userManager, InternalGrantsSettings grants, IOptions<InternalGrantsSettings> settings)
         {
             _repository = repository;
-            _infirmaryRepository = infirmaryRepository;
+            //_infirmaryRepository = infirmaryRepository;
             _userManager = userManager;
             _grants = grants;
             _grantsSettings = settings.Value;
@@ -40,14 +40,14 @@ namespace Maktab.Sample.Blog.Service.Departments
         public async Task<GeneralResult> AddDepartmentAsync(AddDepartmentCommand command)
         {
             var user = await _userManager.FindByNameAsync(command.UserName);
-            var infirmary = await _infirmaryRepository.GetAsync(command.InfirmaryId);
+           // var infirmary = await _infirmaryRepository.GetAsync(command.InfirmaryId);
             if (user == null)
                 throw new ItemNotFoundException(nameof(User));
 
-            if (infirmary == null)
-                throw new ItemNotFoundException(nameof(Infirmary));
+            //if (infirmary == null)
+            //    throw new ItemNotFoundException(nameof(Infirmary));
 
-            var department = new Department(command.DepartmentName, command.DepartmentService, user.Id,infirmary.Id);
+            var department = new Department(command.DepartmentName, command.DepartmentService, user.Id/*,infirmary.Id*/);
             await _repository.AddAsync(department);
             return new GeneralResult
             {
@@ -63,7 +63,7 @@ namespace Maktab.Sample.Blog.Service.Departments
             var department = await _repository.GetAsync(id);
 
             if (department == null)
-                throw new ItemNotFoundException(nameof(Post));
+                throw new ItemNotFoundException(nameof(Department));
 
             if (department.AuthorId != userId)
                 throw new PermissionDeniedException();

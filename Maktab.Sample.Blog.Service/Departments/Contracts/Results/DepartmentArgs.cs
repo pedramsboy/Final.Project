@@ -19,7 +19,7 @@ namespace Maktab.Sample.Blog.Service.Departments.Contracts.Results
         public string DepartmentName { get; set; }
         public string DepartmentService { get; set; }
         public UserArgs? Author { get; set; }
-        public Infirmary? Infirmary { get; set; }
+        //public Infirmary? Infirmary { get; set; }
         //public List<DoctorArgs> Doctors { get; set; } = new();
     }
 

@@ -1,4 +1,5 @@
 ﻿using Maktab.Sample.Blog.Abstraction.Domain;
+using Maktab.Sample.Blog.Domain.Departments;
 using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Domain.Users;
 using System;

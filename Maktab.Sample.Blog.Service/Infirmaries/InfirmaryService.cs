@@ -63,7 +63,8 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
 
         public async Task<List<InfirmaryArgs>> GetAllInfirmariesAsync(Expression<Func<Infirmary, bool>> predicate=null)
         {
-            var infirmaries = await _repository.QueryAsync(predicate ?? (p => true), include: p => p.Include(x => x.Author));
+            var infirmaries = await _repository.QueryAsync(predicate ?? (p => true), include: p => p.Include(x => x.Author)
+                                                                                                   /*.Include(x => x.Departments)*/);
             return infirmaries.Select(i => i.MapToInfirmaryArgs()).ToList();
         }
     
@@ -71,7 +72,8 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
         public async Task<InfirmaryArgs> GetInfirmaryByIdAsync(Guid id)
         {
             var infirmary = await _repository.GetAsync(id,
-            include: i => i.Include(x => x.Author));
+            include: i => i.Include(x => x.Author)
+                            /*.Include(x => x.Departments)*/);
 
             if (infirmary == null)
                 throw new ItemNotFoundException(nameof(Infirmary));

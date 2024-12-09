@@ -167,6 +167,30 @@ namespace EF_SQLServer_Persitance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Departments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartmentService = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Departments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Departments_AspNetUsers_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Infirmaries",
                 columns: table => new
                 {
@@ -191,6 +215,32 @@ namespace EF_SQLServer_Persitance.Migrations
                     table.PrimaryKey("PK_Infirmaries", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Infirmaries_AspNetUsers_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Patients",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    NationalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PatientDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InsuranceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InsuranceDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Patients", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Patients_AspNetUsers_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -328,6 +378,11 @@ namespace EF_SQLServer_Persitance.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Departments_AuthorId",
+                table: "Departments",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Infirmaries_AuthorId",
                 table: "Infirmaries",
                 column: "AuthorId");
@@ -341,6 +396,12 @@ namespace EF_SQLServer_Persitance.Migrations
                 name: "IX_Likes_UserId",
                 table: "Likes",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patients_AuthorId",
+                table: "Patients",
+                column: "AuthorId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_AuthorId",
@@ -370,10 +431,16 @@ namespace EF_SQLServer_Persitance.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
+                name: "Departments");
+
+            migrationBuilder.DropTable(
                 name: "Infirmaries");
 
             migrationBuilder.DropTable(
                 name: "Likes");
+
+            migrationBuilder.DropTable(
+                name: "Patients");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

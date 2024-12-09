@@ -32,11 +32,11 @@
                 <i class="bi bi-three-dots-vertical"></i>
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" asp-page="EditInfirmary" asp-route-postId="@department.Id" asp-route-maktab="114">Edit Infirmary</a></li>
-                <li><a class="dropdown-item text-danger" onclick="ShowDeleteModal('@department.Id')" href="#">Delete Infirmary</a></li>
+                <li><a class="dropdown-item" asp-page="EditDepartment" asp-route-postId="@department.Id" asp-route-maktab="114">Edit Department</a></li>
+                <li><a class="dropdown-item text-danger" onclick="ShowDeleteModal('@department.Id')" href="#">Delete Department</a></li>
             </ul>
         </div>
-        <div class="card-img-top" style="height: 400px; background-image: url('Hospital_Pic_3.png'); background-repeat: no-repeat; background-position: center; background-size: cover"></div>
+        <div class="card-img-top" style="height: 400px; background-image: url('Infirmary_department2.jpg'); background-repeat: no-repeat; background-position: center; background-size: cover"></div>
         <div class="card-body">
             <h5 class="card-title">@department.DepartmentName</h5>
             <p class="card-text">@department.DepartmentService</p>

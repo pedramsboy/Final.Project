@@ -14,12 +14,12 @@ namespace Maktab.Sample.Blog.Domain.Departments
 {
     public class Department : BaseEntity
     {
-        public Department(string departmentName, string departmentService, Guid authorId,Guid infirmaryId)
+        public Department(string departmentName, string departmentService, Guid authorId/*,Guid infirmaryId*/)
         {
             DepartmentName=departmentName;
             DepartmentService=departmentService;
             AuthorId = authorId;
-            InfirmaryId=infirmaryId;
+            //InfirmaryId=infirmaryId;
             Validate();
         }
 
@@ -53,11 +53,11 @@ namespace Maktab.Sample.Blog.Domain.Departments
         /// <summary>
         /// Infirmary id for navigation purposes
         /// </summary>
-        public Guid InfirmaryId { get; private set; }
+        //public Guid InfirmaryId { get; private set; }
         /// <summary>
         /// Infirmary object for navigation purposes
         /// </summary>
-        public Infirmary Infirmary { get; private set; }
+        //public Infirmary Infirmary { get; private set; }
 
         protected override void Validate()
         {
@@ -70,8 +70,8 @@ namespace Maktab.Sample.Blog.Domain.Departments
             if (AuthorId == null || AuthorId == Guid.Empty)
                 throw new EmptyAuthorIdException();
 
-            if (InfirmaryId == null || InfirmaryId == Guid.Empty)
-                throw new EmptyInfirmaryIdException();
+            //if (InfirmaryId == null || InfirmaryId == Guid.Empty)
+            //    throw new EmptyInfirmaryIdException();
         }
 
         public void SetDepartmentInfo(string departmentName, string departmentService)
