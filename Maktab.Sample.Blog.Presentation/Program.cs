@@ -46,6 +46,7 @@ builder.Services.AddIdentity<User, Role>(options =>
     }).AddEntityFrameworkStores<SqlServerDbContext>()
     .AddDefaultTokenProviders();
 
+
 builder.Services.AddRazorPages();
 
 builder.Services.ConfigureApplicationCookie(opt =>

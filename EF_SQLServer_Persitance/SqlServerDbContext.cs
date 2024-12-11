@@ -6,19 +6,20 @@ using Maktab.Sample.Blog.Domain.Patients;
 using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Domain.Roles;
 using Maktab.Sample.Blog.Domain.Users;
+using Maktab.Sample.Blog.Persistence.Departments;
+using Maktab.Sample.Blog.Persistence.Infirmaries;
+using Maktab.Sample.Blog.Persistence.Patients;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EF_SQLServer_Persitance
 {
     public class SqlServerDbContext : IdentityDbContext<User, Role, Guid>
     {
-        public SqlServerDbContext()
-        {
-
-        }
+        
         public SqlServerDbContext(DbContextOptions<SqlServerDbContext> dbContext) : base(dbContext)
         {
 
@@ -29,13 +30,15 @@ namespace EF_SQLServer_Persitance
         public DbSet<Infirmary> Infirmaries { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Patient> Patients { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
                 var conStr =
-                 // "Data Source=.\\SQLEXPRESS;Initial Catalog=blogdb;TrustServerCertificate=True;Integrated Security=SSPI";
+                // "Data Source=.\\SQLEXPRESS;Initial Catalog=blogdb;TrustServerCertificate=True;Integrated Security=SSPI";
                  "Data Source=.;Initial Catalog=TestOnlineDoctorAppointment;TrustServerCertificate=True;User Id=sa;Password=13790047;MultipleActiveResultSets=true;";
+
                 optionsBuilder.UseSqlServer(conStr);
             }
         }
@@ -48,6 +51,9 @@ namespace EF_SQLServer_Persitance
             modelBuilder.ConfigurePostModelBuilder();
             modelBuilder.ConfigureCommentModelBuilder();
             modelBuilder.ConfigureLikeModelBuilder();
+            modelBuilder.ConfigureInfirmaryModelBuilder();
+            modelBuilder.ConfigureDepartmentModelBuilder();
+            modelBuilder.ConfigurePatientModelBuilder();
         }
     }
 }

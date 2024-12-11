@@ -192,4 +192,16 @@
   <data name="DepartmentServiceProp" xml:space="preserve">
     <value>Department Service</value>
   </data>
+  <data name="InsuranceDescriptionProp" xml:space="preserve">
+    <value>Insurance Description</value>
+  </data>
+  <data name="InsuranceNameProp" xml:space="preserve">
+    <value>Insurance Name</value>
+  </data>
+  <data name="NationalCodeProp" xml:space="preserve">
+    <value>National Code</value>
+  </data>
+  <data name="PatientDescriptionProp" xml:space="preserve">
+    <value>Patient Description</value>
+  </data>
 </root>

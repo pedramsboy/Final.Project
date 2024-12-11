@@ -44,10 +44,10 @@ namespace Maktab.Sample.Blog.Domain.Departments
         }
     }
 
-    //public class EmptyInfirmaryIdException : BaseEmptyArgumentException
-    //{
-    //    public EmptyInfirmaryIdException() : base("Infirmary id", 4)
-    //    {
-    //    }
-    //}
+    public class EmptyInfirmaryIdException : BaseEmptyArgumentException
+    {
+        public EmptyInfirmaryIdException() : base("Infirmary id", 4)
+        {
+        }
+    }
 }

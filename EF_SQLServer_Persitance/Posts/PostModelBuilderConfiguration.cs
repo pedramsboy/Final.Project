@@ -1,5 +1,7 @@
+using Maktab.Sample.Blog.Domain.Comments;
 using Maktab.Sample.Blog.Domain.Posts;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace EF_SQLServer_Persitance;
 
@@ -19,15 +21,17 @@ public static class PostModelBuilderConfiguration
         //builder.Entity<Post>()
         //    .HasMany(p => p.Comments)
         //    .WithOne()
-        //    .HasForeignKey("PostId")
+        //    .HasForeignKey(c=>c.AuthorId)
         //    .OnDelete(DeleteBehavior.Cascade);
-        
+
+            
+
         //builder.Entity<Post>()
         //    .HasMany(p => p.Likes)
         //    .WithOne()
         //    .HasForeignKey("PostId")
         //    .OnDelete(DeleteBehavior.Cascade);
-        
+
         builder.Entity<Post>()
             .Property(u => u.Title)
             .HasColumnType("Nvarchar(200)")

@@ -82,7 +82,7 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
         /// <summary>
         /// Each Infirmary Has a List of Departments
         /// </summary>
-        //public List<Department> Departments { get; set; } = new ();
+        public List<Department> Departments { get; set; } = new ();
 
 
         ///********************* navigation properties ********************/

@@ -13,4 +13,5 @@ public interface IPostService
     Task<PostArgs> GetPostByIdAsync(Guid id);
     Task DeletePostByIdAsync(Guid id, Guid userId);
     Task<List<PostArgs>> GetAllPostsAsync(Expression<Func<Post, bool>> predicate);
+
 }

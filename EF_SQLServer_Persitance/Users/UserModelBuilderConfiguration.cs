@@ -44,17 +44,7 @@ public static class UserModelBuilderConfiguration
             .HasForeignKey(p => p.AuthorId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.Entity<User>()
-            .HasMany(u => u.Infirmaries)
-            .WithOne(i => i.Author)
-            .HasForeignKey(i => i.AuthorId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.Entity<User>()
-            .HasMany(u => u.Departments)
-            .WithOne(d => d.Author)
-            .HasForeignKey(i => i.AuthorId)
-            .OnDelete(DeleteBehavior.Cascade);
+       
 
         
     }

@@ -1,4 +1,5 @@
 ﻿using Maktab.Sample.Blog.Abstraction.Domain;
+using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Domain.Users;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ public class Comment : BaseEntity
     public Guid AuthorId { get; set; }
     public User Author { get; set; }
 
+    public Guid PostId { get; set; }
+    public Post Post { get; set; }
     protected override void Validate()
     {
         if(string.IsNullOrWhiteSpace(CommentText))

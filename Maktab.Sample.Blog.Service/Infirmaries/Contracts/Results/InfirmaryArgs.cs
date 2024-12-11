@@ -23,7 +23,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results
         public string Street { get; set; }
         public string PhoneNumber { get; set; }
 
-       //public List<DepartmentArgs> Departments { get; set; } = new();
+       public List<DepartmentArgs> Departments { get; set; } = new();
         public Boolean IsAroundTheClock { get; set; }
 
         public enum InfirmaryClassification
@@ -61,7 +61,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results
                 PhoneNumber = infirmary.PhoneNumber,
                 IsAroundTheClock = infirmary.IsAroundTheClock,
                 Author = infirmary.Author?.MapToUserArgs(),
-               // Departments = infirmary.Departments.Select(d => d.MapToDepartmentArgs()).ToList(),
+                Departments = infirmary.Departments.Select(d => d.MapToDepartmentArgs()).ToList(),
 
             };
         }

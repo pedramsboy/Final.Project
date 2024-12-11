@@ -20,6 +20,6 @@ namespace Maktab.Sample.Blog.Service.Patients
         Task UpdatePatientAsync(UpdatePatientCommand command, string userName);
         Task<PatientArgs> GetPatientByIdAsync(Guid id);
         Task DeletePatientByIdAsync(Guid id, Guid userId);
-        //Task<List<PatientArgs>> GetAllPatientsAsync(Expression<Func<Patient, bool>> predicate);
+        Task<List<PatientArgs>> GetAllPatientsAsync(Expression<Func<Patient, bool>> predicate);
     }
 }

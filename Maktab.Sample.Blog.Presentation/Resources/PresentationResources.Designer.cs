@@ -115,6 +115,24 @@ namespace Maktab.Sample.Blog.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insurance Description.
+        /// </summary>
+        public static string InsuranceDescriptionProp {
+            get {
+                return ResourceManager.GetString("InsuranceDescriptionProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insurance Name.
+        /// </summary>
+        public static string InsuranceNameProp {
+            get {
+                return ResourceManager.GetString("InsuranceNameProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entered email address is not valid..
         /// </summary>
         public static string InvalidEmailAddress {
@@ -187,11 +205,29 @@ namespace Maktab.Sample.Blog.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to National Code.
+        /// </summary>
+        public static string NationalCodeProp {
+            get {
+                return ResourceManager.GetString("NationalCodeProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string PasswordProp {
             get {
                 return ResourceManager.GetString("PasswordProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Patient Description.
+        /// </summary>
+        public static string PatientDescriptionProp {
+            get {
+                return ResourceManager.GetString("PatientDescriptionProp", resourceCulture);
             }
         }
         

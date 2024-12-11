@@ -62,10 +62,12 @@ namespace Maktab.Sample.Blog.Service.Patients
             await _repository.HardDeleteAsync(id);
         }
 
-        //public Task<List<PatientArgs>> GetAllPatientsAsync(Expression<Func<Patient, bool>> predicate)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task<List<PatientArgs>> GetAllPatientsAsync(Expression<Func<Patient, bool>> predicate)
+        {
+            var Patients = await _repository.QueryAsync(predicate ?? (p => true), include: p => p.Include(x => x.Author));
+
+            return Patients.Select(i => i.MapToPatientArgs()).ToList();
+        }
 
         public async Task<PatientArgs> GetPatientByIdAsync(Guid id)
         {

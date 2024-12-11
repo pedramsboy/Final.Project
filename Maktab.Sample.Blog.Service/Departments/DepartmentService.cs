@@ -55,40 +55,48 @@ namespace Maktab.Sample.Blog.Service.Departments
             };
         }
 
-        public async Task DeleteDepartmentByIdAsync(Guid id, Guid userId)
+        public async Task DeleteDepartmentByIdAsync(Guid id/*, Guid userId*/)
         {
-            if (id == Guid.Empty)
-                throw new InvalidOperationException("Id is not valid.");
+            //if (id == Guid.Empty)
+            //    throw new InvalidOperationException("Id is not valid.");
 
-            var department = await _repository.GetAsync(id);
+            //var department = await _repository.GetAsync(id);
 
-            if (department == null)
-                throw new ItemNotFoundException(nameof(Department));
+            //if (department == null)
+            //    throw new ItemNotFoundException(nameof(Department));
 
-            if (department.AuthorId != userId)
-                throw new PermissionDeniedException();
+            //if (department.AuthorId != userId)
+            //    throw new PermissionDeniedException();
 
-            await _repository.HardDeleteAsync(id);
+           // await _repository.HardDeleteAsync(id);
         }
 
-        public async Task<List<DepartmentArgs>> GetAllDepartmentsAsync(Expression<Func<Department, bool>> predicate)
+        public Task DeleteDepartmentByIdAsync(Guid id, Guid userId)
         {
-            var departments = await _repository.QueryAsync(predicate ?? (p => true), include: d => d.Include(x => x.Author));
+            throw new NotImplementedException();
+        }
 
-            return departments.Select(p => p.MapToDepartmentArgs()).ToList();
+        public  Task<List<DepartmentArgs>> GetAllDepartmentsAsync(Expression<Func<Department, bool>> predicate)
+        {
+            //var departments = await _repository.QueryAsync(predicate ?? (p => true), include: d => d.Include(x => x.Author));
+
+            //return departments.Select(p => p.MapToDepartmentArgs()).ToList();
+            throw new NotImplementedException();
         }
 
         public async Task<DepartmentArgs> GetDepartmentByIdAsync(Guid id)
         {
-            var department = await _repository.GetAsync(id,
-            include: d => d.Include(x => x.Author));
+            //var department = await _repository.GetAsync(id,
+            //include: d => d.Include(x => x.Author));
 
 
-            if (department == null)
-                throw new ItemNotFoundException(nameof(Department));
+            //if (department == null)
+            //    throw new ItemNotFoundException(nameof(Department));
 
-            return department.MapToDepartmentArgs();
+            //return department.MapToDepartmentArgs();
+            throw new NotImplementedException();
         }
+
 
         public async Task UpdateDepartmentAsync(UpdateDepartmentCommand command, string userName)
         {
@@ -100,8 +108,8 @@ namespace Maktab.Sample.Blog.Service.Departments
             if (department == null)
                 throw new ItemNotFoundException(nameof(Department));
 
-            if (department.AuthorId != user.Id)
-                throw new PermissionDeniedException();
+            //if (department.AuthorId != user.Id)
+            //    throw new PermissionDeniedException();
 
             department.SetDepartmentInfo(command.DepartmentName, command.DepartmentService);
 

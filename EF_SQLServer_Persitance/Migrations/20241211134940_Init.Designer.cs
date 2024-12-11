@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_SQLServer_Persitance.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    [Migration("20241209084356_Init")]
+    [Migration("20241211134940_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -51,7 +51,7 @@ namespace EF_SQLServer_Persitance.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("PostId")
+                    b.Property<Guid>("PostId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -69,9 +69,6 @@ namespace EF_SQLServer_Persitance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -80,11 +77,16 @@ namespace EF_SQLServer_Persitance.Migrations
 
                     b.Property<string>("DepartmentName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
 
                     b.Property<string>("DepartmentService")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(Max)");
+
+                    b.Property<Guid>("InfirmaryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -92,9 +94,14 @@ namespace EF_SQLServer_Persitance.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("InfirmaryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Departments");
                 });
@@ -110,7 +117,8 @@ namespace EF_SQLServer_Persitance.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
 
                     b.Property<int>("Classification")
                         .HasColumnType("int");
@@ -123,7 +131,8 @@ namespace EF_SQLServer_Persitance.Migrations
 
                     b.Property<string>("InfirmaryName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
 
                     b.Property<bool>("IsAroundTheClock")
                         .HasColumnType("bit");
@@ -136,19 +145,23 @@ namespace EF_SQLServer_Persitance.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
 
                     b.Property<string>("SupportedInsurance")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(500)");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -210,11 +223,13 @@ namespace EF_SQLServer_Persitance.Migrations
 
                     b.Property<string>("InsuranceDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(Max)");
 
                     b.Property<string>("InsuranceName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -224,11 +239,13 @@ namespace EF_SQLServer_Persitance.Migrations
 
                     b.Property<string>("NationalCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
 
                     b.Property<string>("PatientDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(Max)");
 
                     b.HasKey("Id");
 
@@ -515,22 +532,30 @@ namespace EF_SQLServer_Persitance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Maktab.Sample.Blog.Domain.Posts.Post", null)
+                    b.HasOne("Maktab.Sample.Blog.Domain.Posts.Post", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostId");
-
-                    b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Departments.Department", b =>
-                {
-                    b.HasOne("Maktab.Sample.Blog.Domain.Users.User", "Author")
-                        .WithMany("Departments")
-                        .HasForeignKey("AuthorId")
+                        .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Departments.Department", b =>
+                {
+                    b.HasOne("Maktab.Sample.Blog.Domain.Infirmaries.Infirmary", "Infirmary")
+                        .WithMany("Departments")
+                        .HasForeignKey("InfirmaryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Maktab.Sample.Blog.Domain.Users.User", null)
+                        .WithMany("Departments")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Infirmary");
                 });
 
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Infirmaries.Infirmary", b =>
@@ -627,6 +652,11 @@ namespace EF_SQLServer_Persitance.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Infirmaries.Infirmary", b =>
+                {
+                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Posts.Post", b =>

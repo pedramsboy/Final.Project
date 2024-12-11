@@ -47,17 +47,17 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
 
         public async Task<IActionResult> OnPostDeleteAsync()
         {
-            var userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
+            //var userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
 
-            try
-            {
-                await _departmentService.DeleteDepartmentByIdAsync(DepartmentId, userId);
-                TempData["SuccessMessage"] = "Department deleted successfully.";
-            }
-            catch (Exception ex)
-            {
-                ViewData["ErrorMessage"] = ex.Message;
-            }
+            //try
+            //{
+            //    await _departmentService.DeleteDepartmentByIdAsync(DepartmentId, userId);
+            //    TempData["SuccessMessage"] = "Department deleted successfully.";
+            //}
+            //catch (Exception ex)
+            //{
+            //    ViewData["ErrorMessage"] = ex.Message;
+            //}
 
             return RedirectToPage("/Departments/Index");
         }

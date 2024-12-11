@@ -16,6 +16,12 @@ public static class InfirmaryModelBuilderConfiguration
            .HasForeignKey(i => i.AuthorId)
            .OnDelete(DeleteBehavior.Cascade);
 
+        //builder.Entity<Infirmary>()
+        //    .HasMany(i => i.Departments)
+        //    .WithOne()
+        //    .HasForeignKey("InfirmaryId")
+        //    .OnDelete(DeleteBehavior.Cascade);
+
 
         builder.Entity<Infirmary>()
             .Property(i => i.InfirmaryName)

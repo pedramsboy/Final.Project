@@ -1,4 +1,5 @@
 ﻿using Maktab.Sample.Blog.Abstraction.Service;
+using Maktab.Sample.Blog.Abstraction.Shared;
 using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results;
