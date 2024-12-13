@@ -18,8 +18,9 @@ namespace Maktab.Sample.Blog.Service.Departments.Contracts.Results
     {
         public string DepartmentName { get; set; }
         public string DepartmentService { get; set; }
+        public Guid InfirmaryId { get; set; }
         //public UserArgs? Author { get; set; }
-        //public Infirmary? Infirmary { get; set; }
+        public InfirmaryArgs? Infirmary { get; set; }
         //public List<DoctorArgs> Doctors { get; set; } = new();
     }
 
@@ -32,8 +33,9 @@ namespace Maktab.Sample.Blog.Service.Departments.Contracts.Results
                 Id = department.Id,
                 DepartmentName = department.DepartmentName,
                 DepartmentService = department.DepartmentService,
+                InfirmaryId = department.InfirmaryId,
                 //Author = department.Author?.MapToUserArgs(),
-                //Infirmary = department.Infirmary?.MapToInfirmaryArgs(),
+                Infirmary = department.Infirmary?.MapToInfirmaryArgs(),
                 //Doctors = department.Doctors.Select(c => c.MapToDoctorArgs()).ToList(),
                 
             };

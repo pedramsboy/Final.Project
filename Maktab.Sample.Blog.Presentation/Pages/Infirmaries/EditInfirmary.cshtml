@@ -38,6 +38,12 @@
         <span asp-validation-for="UpdateInfirmaryModel.PhoneNumber" class="text-danger"></span>
     </div>
 
+    <div class="mb-3">
+        <label asp-for="UpdateInfirmaryModel.IsAroundTheClock" class="form-label">Working Shift</label>
+        <input asp-for="UpdateInfirmaryModel.IsAroundTheClock" class="form-control" id="isAroundTheClockInput">
+        <span asp-validation-for="UpdateInfirmaryModel.IsAroundTheClock" class="text-danger"></span>
+    </div>
+
     <div class="mb-3 d-none">
         <input asp-for="UpdateInfirmaryModel.Id" class="form-control" id="postIdInput">
     </div>

@@ -43,6 +43,8 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Models
 
         [Display(Name = "IsAroundTheClock", ResourceType = typeof(PresentationResources))]
         [Required(ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "RequiredValidationMessage")]
-        public bool IsAroundTheClock { get; set; }
+        [MinLength(10, ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "MinLengthStringValidationMessage")]
+        [DataType(DataType.MultilineText)]
+        public string IsAroundTheClock { get; set; }
     }
 }

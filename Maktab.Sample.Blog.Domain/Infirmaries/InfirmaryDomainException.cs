@@ -64,3 +64,9 @@ public class EmptyAuthorIdException : BaseEmptyArgumentException
     }
 }
 
+public class EmptyIsAroundTheClockException : BaseEmptyArgumentException
+{
+    public EmptyIsAroundTheClockException() : base("Is Around The Clock", 8)
+    {
+    }
+}

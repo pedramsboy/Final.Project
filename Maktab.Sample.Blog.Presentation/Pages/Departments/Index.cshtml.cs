@@ -19,14 +19,18 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
         public List<DepartmentArgs> DepartmentsModel { get; set; }
 
         public Guid DepartmentId { get; set; }
+        public Guid InfirmaryId { get; set; }
+
+
         private readonly IDepartmentService _departmentService;
 
         public IndexModel(IDepartmentService departmentService)
         {
             _departmentService = departmentService;
         }
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(Guid infirmaryId)
         {
+            InfirmaryId = infirmaryId;
             DepartmentsModel = await _departmentService.GetAllDepartmentsAsync(p => true);
         }
 
@@ -38,7 +42,8 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
             {
                 DepartmentName = AddDepartmentModel.DepartmentName,
                 DepartmentService = AddDepartmentModel.DepartmentService,
-                UserName = User.Identity?.Name ?? string.Empty
+                InfirmaryId=AddDepartmentModel.InfirmaryId,
+                //UserName = User.Identity?.Name ?? string.Empty
             };
 
             var result = await _departmentService.AddDepartmentAsync(departmentCommand);
@@ -49,15 +54,15 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
         {
             //var userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
 
-            //try
-            //{
-            //    await _departmentService.DeleteDepartmentByIdAsync(DepartmentId, userId);
-            //    TempData["SuccessMessage"] = "Department deleted successfully.";
-            //}
-            //catch (Exception ex)
-            //{
-            //    ViewData["ErrorMessage"] = ex.Message;
-            //}
+            try
+            {
+                await _departmentService.DeleteDepartmentByIdAsync(DepartmentId);
+                TempData["SuccessMessage"] = "Department deleted successfully.";
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
 
             return RedirectToPage("/Departments/Index");
         }

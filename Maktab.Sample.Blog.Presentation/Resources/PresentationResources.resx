@@ -204,4 +204,7 @@
   <data name="PatientDescriptionProp" xml:space="preserve">
     <value>Patient Description</value>
   </data>
+  <data name="NationalCodeStringValidationMessage" xml:space="preserve">
+    <value>National Code Should Consist of Only Numbers</value>
+  </data>
 </root>

@@ -214,6 +214,15 @@ namespace Maktab.Sample.Blog.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to National Code Should Consist of Only Numbers.
+        /// </summary>
+        public static string NationalCodeStringValidationMessage {
+            get {
+                return ResourceManager.GetString("NationalCodeStringValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string PasswordProp {

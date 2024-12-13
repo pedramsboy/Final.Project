@@ -16,5 +16,6 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Models
         [MinLength(5, ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "MinLengthStringValidationMessage")]
         [DataType(DataType.MultilineText)]
         public string DepartmentService { get; set; }
+        public Guid InfirmaryId { get; set; }
     }
 }

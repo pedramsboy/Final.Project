@@ -15,6 +15,12 @@ namespace Maktab.Sample.Blog.Persistence.Departments
         public DepartmentRepository(SqlServerDbContext dbContext, ILogger<DepartmentRepository> logger) : base(dbContext, logger)
         {
         }
+
+        public async Task<List<Department>> DepartmentsList(Guid infirmaryId)
+        {
+            return await QueryAsync(d => d.InfirmaryId == infirmaryId);
+        }
+
         public async Task<List<Department>> SearchDepartmentsByTitle(string title)
         {
             return await QueryAsync(p => p.DepartmentName.Contains(title));

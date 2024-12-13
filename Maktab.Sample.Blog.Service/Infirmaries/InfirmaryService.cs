@@ -68,7 +68,16 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
                                                                                                    .Include(x => x.Departments));
             return infirmaries.Select(i => i.MapToInfirmaryArgs()).ToList();
         }
-    
+
+        public async Task<PaginatedList<InfirmaryArgs>> GetAllInfirmariesAsyncPaginatedList(int pageSize, int pageIndex, Expression<Func<Infirmary, bool>> predicate)
+        {
+            var infirmaries = await _repository.QueryAsync(predicate ?? (p => true), include: p => p.Include(x => x.Author)
+                                                                                                   .Include(x => x.Departments));
+            var infirmariesList= infirmaries.Select(i => i.MapToInfirmaryArgs()).ToList();
+
+            var data = PaginatedList<InfirmaryArgs>.Create(infirmariesList, pageIndex, pageSize);
+            return new PaginatedList<InfirmaryArgs>(data.ToList(), infirmariesList.Count(), pageIndex, pageSize);
+        }
 
         public async Task<InfirmaryArgs> GetInfirmaryByIdAsync(Guid id)
         {

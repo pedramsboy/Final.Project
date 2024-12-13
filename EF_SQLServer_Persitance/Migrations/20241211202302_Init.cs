@@ -172,14 +172,12 @@ namespace EF_SQLServer_Persitance.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     InfirmaryName = table.Column<string>(type: "Nvarchar(200)", nullable: false),
-                    Classification = table.Column<int>(type: "int", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
                     SupportedInsurance = table.Column<string>(type: "Nvarchar(500)", nullable: false),
                     State = table.Column<string>(type: "Nvarchar(200)", nullable: false),
                     City = table.Column<string>(type: "Nvarchar(200)", nullable: false),
                     Street = table.Column<string>(type: "Nvarchar(200)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "Nvarchar(200)", nullable: false),
-                    IsAroundTheClock = table.Column<bool>(type: "bit", nullable: false),
+                    IsAroundTheClock = table.Column<string>(type: "Nvarchar(500)", nullable: false),
                     AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -284,7 +282,7 @@ namespace EF_SQLServer_Persitance.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CommentText = table.Column<string>(type: "varchar(1000)", nullable: false),
                     AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PostId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -303,8 +301,7 @@ namespace EF_SQLServer_Persitance.Migrations
                         name: "FK_Comments_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -326,8 +323,7 @@ namespace EF_SQLServer_Persitance.Migrations
                         name: "FK_Likes_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Likes_Posts_PostId",
                         column: x => x.PostId,

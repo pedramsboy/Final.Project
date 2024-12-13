@@ -52,5 +52,11 @@ public static class InfirmaryModelBuilderConfiguration
             .HasColumnType("Nvarchar(200)")
             .IsRequired()
             .IsUnicode();
+
+        builder.Entity<Infirmary>()
+            .Property(i => i.IsAroundTheClock)
+            .HasColumnType("Nvarchar(500)")
+            .IsRequired()
+            .IsUnicode();
     }
 }

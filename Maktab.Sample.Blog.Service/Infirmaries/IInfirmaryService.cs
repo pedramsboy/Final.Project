@@ -14,4 +14,5 @@ public interface IInfirmaryService
     Task<InfirmaryArgs> GetInfirmaryByIdAsync(Guid id);
     Task DeleteInfirmaryByIdAsync(Guid id, Guid userId);
     Task<List<InfirmaryArgs>> GetAllInfirmariesAsync(Expression<Func<Infirmary, bool>> predicate);
+    Task<PaginatedList<InfirmaryArgs>> GetAllInfirmariesAsyncPaginatedList(int pageSize,int pageIndex,Expression<Func<Infirmary, bool>> predicate);
 }

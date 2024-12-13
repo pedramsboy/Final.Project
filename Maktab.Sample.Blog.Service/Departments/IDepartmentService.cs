@@ -17,9 +17,9 @@ namespace Maktab.Sample.Blog.Service.Departments
     public interface IDepartmentService
     {
         Task<GeneralResult> AddDepartmentAsync(AddDepartmentCommand command);
-        Task UpdateDepartmentAsync(UpdateDepartmentCommand command, string userName);
+        Task UpdateDepartmentAsync(UpdateDepartmentCommand command);
         Task<DepartmentArgs> GetDepartmentByIdAsync(Guid id);
-        Task DeleteDepartmentByIdAsync(Guid id, Guid userId);
+        Task DeleteDepartmentByIdAsync(Guid id);
         Task<List<DepartmentArgs>> GetAllDepartmentsAsync(Expression<Func<Department, bool>> predicate);
     }
 }

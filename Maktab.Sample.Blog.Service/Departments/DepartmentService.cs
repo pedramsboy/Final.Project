@@ -24,30 +24,30 @@ namespace Maktab.Sample.Blog.Service.Departments
     {
 
         private readonly IDepartmentRepository _repository;
-        //private readonly IInfirmaryRepository _infirmaryRepository;
-        private readonly UserManager<User> _userManager;
+        private readonly IInfirmaryRepository _infirmaryRepository;
+        //private readonly UserManager<User> _userManager;
         private readonly InternalGrantsSettings _grants;
         private readonly InternalGrantsSettings _grantsSettings;
 
-        public DepartmentService(IDepartmentRepository repository/*, IInfirmaryRepository infirmaryRepository*/, UserManager<User> userManager, InternalGrantsSettings grants, IOptions<InternalGrantsSettings> settings)
+        public DepartmentService(IDepartmentRepository repository, IInfirmaryRepository infirmaryRepository/*, UserManager<User> userManager*/, InternalGrantsSettings grants, IOptions<InternalGrantsSettings> settings)
         {
             _repository = repository;
-            //_infirmaryRepository = infirmaryRepository;
-            _userManager = userManager;
+            _infirmaryRepository = infirmaryRepository;
+            //_userManager = userManager;
             _grants = grants;
             _grantsSettings = settings.Value;
         }
         public async Task<GeneralResult> AddDepartmentAsync(AddDepartmentCommand command)
         {
-            var user = await _userManager.FindByNameAsync(command.UserName);
-           // var infirmary = await _infirmaryRepository.GetAsync(command.InfirmaryId);
-            if (user == null)
-                throw new ItemNotFoundException(nameof(User));
+            //var user = await _userManager.FindByNameAsync(command.UserName);
+           var infirmary = await _infirmaryRepository.GetAsync(command.InfirmaryId);
+            //if (user == null)
+            //    throw new ItemNotFoundException(nameof(User));
 
-            //if (infirmary == null)
-            //    throw new ItemNotFoundException(nameof(Infirmary));
+            if (infirmary == null)
+                throw new ItemNotFoundException(nameof(Infirmary));
 
-            var department = new Department(command.DepartmentName, command.DepartmentService, user.Id/*,infirmary.Id*/);
+            var department = new Department(command.DepartmentName, command.DepartmentService/*, user.Id*/,infirmary.Id);
             await _repository.AddAsync(department);
             return new GeneralResult
             {
@@ -57,53 +57,50 @@ namespace Maktab.Sample.Blog.Service.Departments
 
         public async Task DeleteDepartmentByIdAsync(Guid id/*, Guid userId*/)
         {
-            //if (id == Guid.Empty)
-            //    throw new InvalidOperationException("Id is not valid.");
+            if (id == Guid.Empty)
+                throw new InvalidOperationException("Id is not valid.");
 
-            //var department = await _repository.GetAsync(id);
+            var department = await _repository.GetAsync(id);
 
-            //if (department == null)
-            //    throw new ItemNotFoundException(nameof(Department));
+            if (department == null)
+                throw new ItemNotFoundException(nameof(Department));
 
             //if (department.AuthorId != userId)
             //    throw new PermissionDeniedException();
 
-           // await _repository.HardDeleteAsync(id);
+             await _repository.HardDeleteAsync(id);
         }
 
-        public Task DeleteDepartmentByIdAsync(Guid id, Guid userId)
-        {
-            throw new NotImplementedException();
-        }
+        
 
-        public  Task<List<DepartmentArgs>> GetAllDepartmentsAsync(Expression<Func<Department, bool>> predicate)
+        public async Task<List<DepartmentArgs>> GetAllDepartmentsAsync(Expression<Func<Department, bool>> predicate)
         {
-            //var departments = await _repository.QueryAsync(predicate ?? (p => true), include: d => d.Include(x => x.Author));
+            var departments = await _repository.QueryAsync(predicate ?? (p => true));
 
-            //return departments.Select(p => p.MapToDepartmentArgs()).ToList();
-            throw new NotImplementedException();
+            return departments.Select(p => p.MapToDepartmentArgs()).ToList();
+            
         }
 
         public async Task<DepartmentArgs> GetDepartmentByIdAsync(Guid id)
         {
-            //var department = await _repository.GetAsync(id,
-            //include: d => d.Include(x => x.Author));
+            var department = await _repository.GetAsync(id,
+            include: d => d.Include(x => x.Infirmary));
 
 
-            //if (department == null)
-            //    throw new ItemNotFoundException(nameof(Department));
+            if (department == null)
+                throw new ItemNotFoundException(nameof(Department));
 
-            //return department.MapToDepartmentArgs();
-            throw new NotImplementedException();
+            return department.MapToDepartmentArgs();
+            
         }
 
 
-        public async Task UpdateDepartmentAsync(UpdateDepartmentCommand command, string userName)
+        public async Task UpdateDepartmentAsync(UpdateDepartmentCommand command)
         {
             var department = await _repository.GetAsync(command.Id, false);
-            var user = await _userManager.FindByNameAsync(userName);
-            if (user == null)
-                throw new ItemNotFoundException(nameof(User));
+            //var user = await _userManager.FindByNameAsync(userName);
+            //if (user == null)
+            //    throw new ItemNotFoundException(nameof(User));
 
             if (department == null)
                 throw new ItemNotFoundException(nameof(Department));

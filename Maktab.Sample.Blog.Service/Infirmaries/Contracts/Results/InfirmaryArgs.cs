@@ -15,32 +15,15 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results
     public class InfirmaryArgs : GeneralResult
     {
         public string InfirmaryName { get; set; }
-        public InfirmaryClassification Classification { get; set; }
-        public InfirmaryType Type { get; set; }
         public string SupportedInsurance { get; set; }
         public string State { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
         public string PhoneNumber { get; set; }
+        public string IsAroundTheClock { get; set; }
 
-       public List<DepartmentArgs> Departments { get; set; } = new();
-        public Boolean IsAroundTheClock { get; set; }
-
-        public enum InfirmaryClassification
-        {
-            Community,
-            Private,
-            All
-        }
-
-        public enum InfirmaryType
-        {
-            Hospital,
-            Laboratory,
-            ImagingCenter,
-            Clinic
-        }
-
+        public List<DepartmentArgs> Departments { get; set; } = new();
+       
         public UserArgs? Author { get; set; }
     }
 
@@ -52,8 +35,6 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results
             {
                 Id = infirmary.Id,
                 InfirmaryName = infirmary.InfirmaryName,
-                //Classification = infirmary.Classification,
-                //InfirmaryType = infirmary.InfirmaryType,
                 SupportedInsurance = infirmary.SupportedInsurance,
                 State = infirmary.State,
                 City = infirmary.City,

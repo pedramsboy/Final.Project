@@ -18,6 +18,12 @@
         <span asp-validation-for="AddDepartmentModel.DepartmentService" class="text-danger"></span>
     </div>
 
+    <div class="mb-3">
+        <label asp-for="AddDepartmentModel.InfirmaryId" class="form-label d-none">Department Service</label>
+        <input asp-for="AddDepartmentModel.InfirmaryId" class="form-control d-none" id="infirmaryIdInput"  value='@Model.InfirmaryId'>
+        <span asp-validation-for="AddDepartmentModel.InfirmaryId" class="text-danger d-none"></span>
+    </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 @{
@@ -40,7 +46,7 @@
         <div class="card-body">
             <h5 class="card-title">@department.DepartmentName</h5>
             <p class="card-text">@department.DepartmentService</p>
-            @* <p class="card-text d-none">Author: @department.Author!.GetFullName()</p> *@
+             <p class="card-text d-none">Infirmary id: @department.InfirmaryId</p> 
         </div>
     </div>
 }

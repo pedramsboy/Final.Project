@@ -12,7 +12,7 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
 {
     public class Infirmary : BaseEntity
     {
-        public Infirmary(string infirmaryName, string supportedInsurance, string state, string city, string street, string phoneNumber,bool isAroundTheClock, Guid authorId)
+        public Infirmary(string infirmaryName, string supportedInsurance, string state, string city, string street, string phoneNumber,string isAroundTheClock, Guid authorId)
         {
             InfirmaryName = infirmaryName;
             SupportedInsurance = supportedInsurance;
@@ -30,14 +30,7 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
         /// Name Of The Infirmary
         /// </summary>
         public string InfirmaryName { get; set; } = string.Empty;
-        /// <summary>
-        /// Classification of The Infirmary Types
-        /// </summary>
-        public InfirmaryClassification Classification { get; set; }
-        /// <summary>
-        /// Different Types of Infimary
-        /// </summary>
-        public InfirmaryType Type { get; set; }
+        
         /// <summary>
         /// Each Supported Insurances In an Infirmary
         /// </summary>
@@ -60,24 +53,11 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
         public string PhoneNumber { get; set; } = string.Empty;
         
         /// <summary>
-        /// Does Work Over Night or Not
+        /// Infirmary Working Shifts
         /// </summary>
-        public Boolean IsAroundTheClock { get; set; }
+        public string IsAroundTheClock { get; set; }
 
-        public enum InfirmaryClassification
-        {
-            Community,
-            Private,
-            All
-        }
-
-        public enum InfirmaryType
-        {
-            Hospital,
-            Laboratory,
-            ImagingCenter,
-            Clinic
-        }
+        
 
         /// <summary>
         /// Each Infirmary Has a List of Departments
@@ -116,13 +96,16 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
             if (string.IsNullOrWhiteSpace(PhoneNumber))
                 throw new EmptyPhoneNumberException();
 
+            if (string.IsNullOrWhiteSpace(IsAroundTheClock))
+                throw new EmptyIsAroundTheClockException();
+
             if (AuthorId == null || AuthorId == Guid.Empty)
                 throw new EmptyAuthorIdException();
 
 
         }
 
-        public void SetInfirmaryInfo(string infirmaryName, string supportedInsurance, string state, string city, string street, string phoneNumber, bool isAroundTheClock)
+        public void SetInfirmaryInfo(string infirmaryName, string supportedInsurance, string state, string city, string street, string phoneNumber, string isAroundTheClock)
         {
             if (!string.IsNullOrWhiteSpace(infirmaryName))
                 InfirmaryName = infirmaryName;
@@ -142,7 +125,9 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
             if (!string.IsNullOrWhiteSpace(phoneNumber))
                 PhoneNumber = phoneNumber;
 
-            IsAroundTheClock = isAroundTheClock;
+            if (!string.IsNullOrWhiteSpace(isAroundTheClock))
+                IsAroundTheClock = isAroundTheClock;
+
         }
     }
 }

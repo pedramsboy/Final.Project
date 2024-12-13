@@ -9,7 +9,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Models
         [Required(ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "RequiredValidationMessage")]
         [MinLength(10, ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "MinLengthStringValidationMessage")]
         [MaxLength(11, ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "MaxLengthStringValidationMessage")]
-        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "Invalid")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(PresentationResources), ErrorMessageResourceName = "NationalCodeStringValidationMessage")]
         public string NationalCode { get; set; }
 
         [Display(Name = "PatientDescriptionProp", ResourceType = typeof(PresentationResources))]

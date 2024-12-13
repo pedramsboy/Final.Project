@@ -43,7 +43,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
                 var command = UpdateDepartmentModel.Adapt<UpdateDepartmentCommand>();
                 try
                 {
-                    await _departmentService.UpdateDepartmentAsync(command, User.Identity?.Name ?? string.Empty);
+                    await _departmentService.UpdateDepartmentAsync(command);
                     TempData["SuccessMessage"] = "Department updated successfully.";
                     return RedirectToPage("/Departments/Index");
 

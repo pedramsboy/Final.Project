@@ -7,6 +7,7 @@ using Maktab.Sample.Blog.Service.Posts.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
 
 namespace Maktab.Sample.Blog.Presentation.Pages.Patients
 {
@@ -27,7 +28,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Patients
         }
 
         public AddPatientModel AddPatientModel { get; set; }
-        public async Task<IActionResult> OnPatientCreateAsync()
+        public async Task<IActionResult> OnPostCreateAsync()
         {
             var patientCommand = new AddPatientCommand
             {
@@ -39,6 +40,24 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Patients
             };
 
             var result = await _patientService.AddPatientAsync(patientCommand);
+            return RedirectToPage("/Patients/Index");
+        }
+
+
+        public async Task<IActionResult> OnPostDeleteAsync()
+        {
+            var userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
+
+            try
+            {
+                await _patientService.DeletePatientByIdAsync(PostId, userId);
+                TempData["SuccessMessage"] = "Patient deleted successfully.";
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = ex.Message;
+            }
+
             return RedirectToPage("/Patients/Index");
         }
     }

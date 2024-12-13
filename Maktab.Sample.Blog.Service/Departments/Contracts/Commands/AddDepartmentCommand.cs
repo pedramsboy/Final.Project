@@ -10,7 +10,7 @@ namespace Maktab.Sample.Blog.Service.Departments.Contracts.Commands
     {
         public string DepartmentName { get; set; }
         public string DepartmentService { get; set; }
-        public string UserName { get; set; }
-        //public Guid InfirmaryId { get; set; }
+        //public string UserName { get; set; }
+        public Guid InfirmaryId { get; set; }
     }
 }

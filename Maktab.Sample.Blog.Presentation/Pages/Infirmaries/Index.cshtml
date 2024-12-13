@@ -37,6 +37,12 @@
         <input asp-for="AddInfirmaryModel.PhoneNumber" class="form-control" id="phoneNumberInput">
         <span asp-validation-for="AddInfirmaryModel.PhoneNumber" class="text-danger"></span>
     </div>
+
+    <div class="mb-3">
+        <label asp-for="AddInfirmaryModel.IsAroundTheClock" class="form-label">Working Shift</label>
+        <input asp-for="AddInfirmaryModel.IsAroundTheClock" class="form-control" id="isAroundTheClockInput">
+        <span asp-validation-for="AddInfirmaryModel.IsAroundTheClock" class="text-danger"></span>
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 @{
@@ -65,7 +71,7 @@
             <p class="card-text">@infirmary.PhoneNumber</p>
             <p class="card-text">@infirmary.IsAroundTheClock</p>
             <p class="card-text d-none">Author: @infirmary.Author!.GetFullName()</p>
-            <a  asp-page="/Departments/Index">Departments List</a>
+            <a asp-page="/Departments/Index" asp-route-infirmaryId="@infirmary.Id">Departments List</a>
         </div>
     </div>
 }
@@ -91,6 +97,8 @@
         </div>
     </div>
 </div>
+
+
 
 <script>
     function ShowDeleteModal(infirmaryId) {
