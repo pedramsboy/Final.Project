@@ -207,4 +207,16 @@
   <data name="NationalCodeStringValidationMessage" xml:space="preserve">
     <value>National Code Should Consist of Only Numbers</value>
   </data>
+  <data name="DoctorServiceProp" xml:space="preserve">
+    <value>Doctor Service</value>
+  </data>
+  <data name="LevelOfSpecialityProp" xml:space="preserve">
+    <value>Level Of Speciality</value>
+  </data>
+  <data name="MedicalSystemCodeProp" xml:space="preserve">
+    <value>Medical System Code</value>
+  </data>
+  <data name="MedicalSystemStringValidationMessage" xml:space="preserve">
+    <value>Medical System Code Should Consist of Only Numbers</value>
+  </data>
 </root>

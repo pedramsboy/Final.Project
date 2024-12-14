@@ -408,8 +408,7 @@ namespace EF_SQLServer_Persitance.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Patients_AuthorId",
                 table: "Patients",
-                column: "AuthorId",
-                unique: true);
+                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_AuthorId",

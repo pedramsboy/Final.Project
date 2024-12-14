@@ -1,6 +1,5 @@
 ﻿using Maktab.Sample.Blog.Abstraction.Service;
 using Maktab.Sample.Blog.Abstraction.Service.Exceptions;
-using Maktab.Sample.Blog.Abstraction.Shared;
 using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Domain.Users;
@@ -65,25 +64,16 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
         public async Task<List<InfirmaryArgs>> GetAllInfirmariesAsync(Expression<Func<Infirmary, bool>> predicate=null)
         {
             var infirmaries = await _repository.QueryAsync(predicate ?? (p => true), include: p => p.Include(x => x.Author)
-                                                                                                   .Include(x => x.Departments));
+                                                                                                   /*.Include(x => x.Departments)*/);
             return infirmaries.Select(i => i.MapToInfirmaryArgs()).ToList();
         }
 
-        public async Task<PaginatedList<InfirmaryArgs>> GetAllInfirmariesAsyncPaginatedList(int pageSize, int pageIndex, Expression<Func<Infirmary, bool>> predicate)
-        {
-            var infirmaries = await _repository.QueryAsync(predicate ?? (p => true), include: p => p.Include(x => x.Author)
-                                                                                                   .Include(x => x.Departments));
-            var infirmariesList= infirmaries.Select(i => i.MapToInfirmaryArgs()).ToList();
-
-            var data = PaginatedList<InfirmaryArgs>.Create(infirmariesList, pageIndex, pageSize);
-            return new PaginatedList<InfirmaryArgs>(data.ToList(), infirmariesList.Count(), pageIndex, pageSize);
-        }
 
         public async Task<InfirmaryArgs> GetInfirmaryByIdAsync(Guid id)
         {
             var infirmary = await _repository.GetAsync(id,
             include: i => i.Include(x => x.Author)
-                            .Include(x => x.Departments));
+                            /*.Include(x => x.Departments)*/);
 
             if (infirmary == null)
                 throw new ItemNotFoundException(nameof(Infirmary));

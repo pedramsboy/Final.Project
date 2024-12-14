@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_SQLServer_Persitance.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    [Migration("20241211202302_Init")]
-    partial class Init
+    [Migration("20241214095348_Teest1")]
+    partial class Teest1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,6 +104,59 @@ namespace EF_SQLServer_Persitance.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Doctors.Doctor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DoctorService")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(500)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
+
+                    b.Property<string>("LevelOfSpeciality")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
+
+                    b.Property<string>("MedicalSystemCode")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Doctors");
                 });
 
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Infirmaries.Infirmary", b =>
@@ -245,8 +298,7 @@ namespace EF_SQLServer_Persitance.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId")
-                        .IsUnique();
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Patients");
                 });
@@ -550,6 +602,17 @@ namespace EF_SQLServer_Persitance.Migrations
                     b.Navigation("Infirmary");
                 });
 
+            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Doctors.Doctor", b =>
+                {
+                    b.HasOne("Maktab.Sample.Blog.Domain.Departments.Department", "Department")
+                        .WithMany("Doctors")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Infirmaries.Infirmary", b =>
                 {
                     b.HasOne("Maktab.Sample.Blog.Domain.Users.User", "Author")
@@ -575,8 +638,8 @@ namespace EF_SQLServer_Persitance.Migrations
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Patients.Patient", b =>
                 {
                     b.HasOne("Maktab.Sample.Blog.Domain.Users.User", "Author")
-                        .WithOne("Patient")
-                        .HasForeignKey("Maktab.Sample.Blog.Domain.Patients.Patient", "AuthorId")
+                        .WithMany("Patients")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -645,6 +708,11 @@ namespace EF_SQLServer_Persitance.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Departments.Department", b =>
+                {
+                    b.Navigation("Doctors");
+                });
+
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Infirmaries.Infirmary", b =>
                 {
                     b.Navigation("Departments");
@@ -667,7 +735,7 @@ namespace EF_SQLServer_Persitance.Migrations
 
                     b.Navigation("Likes");
 
-                    b.Navigation("Patient");
+                    b.Navigation("Patients");
 
                     b.Navigation("Posts");
                 });

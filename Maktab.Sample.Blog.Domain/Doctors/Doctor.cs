@@ -1,6 +1,7 @@
 ﻿using Maktab.Sample.Blog.Abstraction.Domain;
 using Maktab.Sample.Blog.Domain.Departments;
 using Maktab.Sample.Blog.Domain.Infirmaries;
+using Maktab.Sample.Blog.Domain.prescription;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,6 +50,12 @@ namespace Maktab.Sample.Blog.Domain.Doctors
         /// Services That Each Dcotor Can Provides
         /// </summary>
         public string DoctorService { get; set; } = string.Empty;
+
+
+        /// <summary>
+        /// Each Doctor Has a List of Prescriptions
+        /// </summary>
+        public List<Prescription> Prescriptions { get; set; } = new();
 
 
         ///********************* Navigation Properties ********************/

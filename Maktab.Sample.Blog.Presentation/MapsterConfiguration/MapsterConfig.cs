@@ -1,6 +1,7 @@
 using Maktab.Sample.Blog.Presentation.Models.Accounting;
 using Maktab.Sample.Blog.Presentation.Pages.Models;
 using Maktab.Sample.Blog.Service.Departments.Contracts.Commands;
+using Maktab.Sample.Blog.Service.Doctors.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Patients.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Commands;
@@ -25,5 +26,7 @@ public static class MapsterConfig
         TypeAdapterConfig<UpdateDepartmentModel, UpdateDepartmentCommand>.NewConfig();
 
         TypeAdapterConfig<UpdatePatientModel, UpdatePatientCommand>.NewConfig();
+
+        TypeAdapterConfig<UpdateDoctorModel, UpdateDoctorCommand>.NewConfig();
     }
 }

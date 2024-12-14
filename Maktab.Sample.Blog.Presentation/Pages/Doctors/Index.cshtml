@@ -1,0 +1,105 @@
+﻿@page
+@model Maktab.Sample.Blog.Presentation.Pages.Doctors.IndexModel
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+}
+
+<form method="post" asp-page-handler="Create">
+    <div class="mb-3">
+        <label asp-for="AddDoctorModel.FirstName" class="form-label">First Name</label>
+        <input asp-for="AddDoctorModel.FirstName" class="form-control" id="firstNameInput">
+        <span asp-validation-for="AddDoctorModel.FirstName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AddDoctorModel.LastName" class="form-label">Last Name</label>
+        <input asp-for="AddDoctorModel.LastName" class="form-control" id="lastNameInput">
+        <span asp-validation-for="AddDoctorModel.LastName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AddDoctorModel.MedicalSystemCode" class="form-label">Medical System Code</label>
+        <input asp-for="AddDoctorModel.MedicalSystemCode" class="form-control" id="medicalSystemCodeInput">
+        <span asp-validation-for="AddDoctorModel.MedicalSystemCode" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AddDoctorModel.LevelOfSpeciality" class="form-label">Level Of Speciality</label>
+        <input asp-for="AddDoctorModel.LevelOfSpeciality" class="form-control" id="levelOfSpecialityInput">
+        <span asp-validation-for="AddDoctorModel.LevelOfSpeciality" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AddDoctorModel.DoctorService" class="form-label">Doctor Service</label>
+        <input asp-for="AddDoctorModel.DoctorService" class="form-control" id="doctorServiceInput">
+        <span asp-validation-for="AddDoctorModel.DoctorService" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AddDoctorModel.DepartmentId" class="form-label d-none">Department Id</label>
+        <input asp-for="AddDoctorModel.DepartmentId" class="form-control d-none" id="departmentIdInput" value='@Model.DepartmentId'>
+        <span asp-validation-for="AddDoctorModel.DepartmentId" class="text-danger d-none"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+@{
+    var counter = 1;
+}
+
+@foreach (var doctor in Model.DoctorsModel)
+{
+    <div class="card mt-2 position-relative">
+        <div class="btn-group dropstart position-absolute top-0 end-0">
+            <button type="button" class="btn btn-secondary bg-transparent border-0 text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-page="EditDoctor" asp-route-postId="@doctor.Id" asp-route-maktab="114">Edit Doctor</a></li>
+                <li><a class="dropdown-item text-danger" onclick="ShowDeleteModal('@doctor.Id')" href="#">Delete Doctor</a></li>
+            </ul>
+        </div>
+        <div class="card-img-top" style="height: 400px; background-image: url('Doctor_Pic.png'); background-repeat: no-repeat; background-position: center; background-size: cover"></div>
+        <div class="card-body">
+            <h5 class="card-text">@doctor.FirstName</h5>
+            <p class="card-text">@doctor.LastName</p>
+            <p class="card-text">Med Code :@doctor.MedicalSystemCode</p>
+            <p class="card-text">@doctor.LevelOfSpeciality</p>
+            <p class="card-text">Services :@doctor.DoctorService</p>
+            <p class="card-text d-none">Department id:@doctor.DepartmentId</p>
+        </div>
+    </div>
+}
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Doctor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete this Doctor?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="post" asp-page-handler="Delete">
+                    <div class="mb-3 d-none">
+                        <input name="DoctorId" class="form-control" id="doctorIdInput">
+                    </div>
+                    <button type="submit" class="btn btn-danger">Yes, Delete Doctor.</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function ShowDeleteModal(doctorId) {
+        let input = document.getElementById("doctorIdInput");
+        console.log(input)
+        input.setAttribute("value", doctorId);
+        let modal = new bootstrap.Modal(document.getElementById("delete-modal"));
+        modal.show();
+    }
+</script>

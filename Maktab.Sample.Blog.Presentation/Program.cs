@@ -7,6 +7,7 @@ using Maktab.Sample.Blog.Persistence.Posts;
 using Maktab.Sample.Blog.Presentation.MapsterConfiguration;
 using Maktab.Sample.Blog.Service.Configurations;
 using Maktab.Sample.Blog.Service.Departments;
+using Maktab.Sample.Blog.Service.Doctors;
 using Maktab.Sample.Blog.Service.Infirmaries;
 using Maktab.Sample.Blog.Service.Patients;
 using Maktab.Sample.Blog.Service.Posts;
@@ -35,6 +36,7 @@ builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IInfirmaryService, InfirmaryService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
 
 builder.Services.AddIdentity<User, Role>(options =>
     {

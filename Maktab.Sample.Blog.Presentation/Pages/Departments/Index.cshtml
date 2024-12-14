@@ -46,7 +46,8 @@
         <div class="card-body">
             <h5 class="card-title">@department.DepartmentName</h5>
             <p class="card-text">@department.DepartmentService</p>
-             <p class="card-text d-none">Infirmary id: @department.InfirmaryId</p> 
+             <p class="card-text d-none">Infirmary id: @department.InfirmaryId</p>
+            <a asp-page="/Doctors/Index" asp-route-departmentId="@department.Id">Doctors List</a>
         </div>
     </div>
 }
@@ -54,7 +55,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete Infirmary</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Delete Department</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

@@ -88,6 +88,15 @@ namespace Maktab.Sample.Blog.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Doctor Service.
+        /// </summary>
+        public static string DoctorServiceProp {
+            get {
+                return ResourceManager.GetString("DoctorServiceProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string EmailProp {
@@ -187,11 +196,38 @@ namespace Maktab.Sample.Blog.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Level Of Speciality.
+        /// </summary>
+        public static string LevelOfSpecialityProp {
+            get {
+                return ResourceManager.GetString("LevelOfSpecialityProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximum length of {0} is {1}..
         /// </summary>
         public static string MaxLengthStringValidationMessage {
             get {
                 return ResourceManager.GetString("MaxLengthStringValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medical System Code.
+        /// </summary>
+        public static string MedicalSystemCodeProp {
+            get {
+                return ResourceManager.GetString("MedicalSystemCodeProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medical System Code Should Consist of Only Numbers.
+        /// </summary>
+        public static string MedicalSystemStringValidationMessage {
+            get {
+                return ResourceManager.GetString("MedicalSystemStringValidationMessage", resourceCulture);
             }
         }
         

@@ -1,5 +1,4 @@
 ﻿using Maktab.Sample.Blog.Abstraction.Service;
-using Maktab.Sample.Blog.Abstraction.Shared;
 using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results;
@@ -14,5 +13,5 @@ public interface IInfirmaryService
     Task<InfirmaryArgs> GetInfirmaryByIdAsync(Guid id);
     Task DeleteInfirmaryByIdAsync(Guid id, Guid userId);
     Task<List<InfirmaryArgs>> GetAllInfirmariesAsync(Expression<Func<Infirmary, bool>> predicate);
-    Task<PaginatedList<InfirmaryArgs>> GetAllInfirmariesAsyncPaginatedList(int pageSize,int pageIndex,Expression<Func<Infirmary, bool>> predicate);
+    
 }

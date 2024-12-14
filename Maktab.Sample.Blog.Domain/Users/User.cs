@@ -4,6 +4,7 @@ using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Domain.Likes;
 using Maktab.Sample.Blog.Domain.Patients;
 using Maktab.Sample.Blog.Domain.Posts;
+using Maktab.Sample.Blog.Domain.prescription;
 using Microsoft.AspNetCore.Identity;
 
 namespace Maktab.Sample.Blog.Domain.Users;
@@ -31,8 +32,13 @@ public class User : IdentityUser<Guid>
     public List<Comment> Comments { get; set; } = new();
     public List<Like> Likes { get; set; } = new();
     public List<Infirmary> Infirmaries { get; set; } = new();
-    public List<Department> Departments { get; set; } = new();
-    public Patient? Patient { get; set; }
+
+    //public List<Department> Departments { get; set; } = new();
+
+    public List<Patient> Patients { get; set; } = new();
+    //public Patient? Patient { get; set; }
+
+    public List<Prescription> Prescriptions { get; set; } = new();
 
     /// <summary>
     /// The Date Time  of The Data Has Been Created

@@ -44,21 +44,21 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Patients
         }
 
 
-        public async Task<IActionResult> OnPostDeleteAsync()
-        {
-            var userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
+        //public async Task<IActionResult> OnPostDeleteAsync()
+        //{
+        //    var userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
 
-            try
-            {
-                await _patientService.DeletePatientByIdAsync(PostId, userId);
-                TempData["SuccessMessage"] = "Patient deleted successfully.";
-            }
-            catch (Exception ex)
-            {
-                ViewData["ErrorMessage"] = ex.Message;
-            }
+        //    try
+        //    {
+        //        await _patientService.DeletePatientByIdAsync(PostId, userId);
+        //        TempData["SuccessMessage"] = "Patient deleted successfully.";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewData["ErrorMessage"] = ex.Message;
+        //    }
 
-            return RedirectToPage("/Patients/Index");
-        }
+        //    return RedirectToPage("/Patients/Index");
+        //}
     }
 }

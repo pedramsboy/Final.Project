@@ -1,0 +1,44 @@
+﻿@page
+@model Maktab.Sample.Blog.Presentation.Pages.Doctors.EditDoctorModel
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+}
+
+<form method="post" asp-page-handler="Update">
+    
+    <div class="mb-3">
+        <label asp-for="UpdateDoctorModel.FirstName" class="form-label">First Name</label>
+        <input asp-for="UpdateDoctorModel.FirstName" class="form-control" id="firstNameInput">
+        <span asp-validation-for="UpdateDoctorModel.FirstName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="UpdateDoctorModel.LastName" class="form-label">Last Name</label>
+        <input asp-for="UpdateDoctorModel.LastName" class="form-control" id="lastNameInput">
+        <span asp-validation-for="UpdateDoctorModel.LastName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="UpdateDoctorModel.MedicalSystemCode" class="form-label">Medical System Code</label>
+        <input asp-for="UpdateDoctorModel.MedicalSystemCode" class="form-control" id="medicalSystemCodeInput">
+        <span asp-validation-for="UpdateDoctorModel.MedicalSystemCode" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="UpdateDoctorModel.LevelOfSpeciality" class="form-label">Level Of Speciality</label>
+        <input asp-for="UpdateDoctorModel.LevelOfSpeciality" class="form-control" id="levelOfSpecialityInput">
+        <span asp-validation-for="UpdateDoctorModel.LevelOfSpeciality" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="UpdateDoctorModel.DoctorService" class="form-label">Doctor Service</label>
+        <input asp-for="UpdateDoctorModel.DoctorService" class="form-control" id="doctorServiceInput">
+        <span asp-validation-for="UpdateDoctorModel.DoctorService" class="text-danger"></span>
+    </div>
+    <div class="mb-3 d-none">
+        <input asp-for="UpdateDoctorModel.Id" class="form-control" id="postIdInput">
+    </div>
+    <button type="submit" class="btn btn-outline-info">Update</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Cancel</a>
+</form>

@@ -1,4 +1,5 @@
 ﻿using Maktab.Sample.Blog.Abstraction.Domain;
+using Maktab.Sample.Blog.Domain.Doctors;
 using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Domain.Users;
@@ -36,7 +37,7 @@ namespace Maktab.Sample.Blog.Domain.Departments
         /// <summary>
         /// Each Department Has a List of Doctors
         /// </summary>
-        //public List<Doctor> Doctors { get; set; } = new();
+        public List<Doctor> Doctors { get; set; } = new();
 
 
         ///********************* navigation properties ********************/

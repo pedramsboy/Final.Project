@@ -9,7 +9,7 @@
 @{
 
 
-    if (Model.PatientModel.Any())
+     if (Model.PatientModel.Any())
     {
         @foreach (var patient in Model.PatientModel)
         {
@@ -19,11 +19,10 @@
                         <i class="bi bi-three-dots-vertical"></i>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" asp-page="#" asp-route-postId="@patient.Id" asp-route-maktab="114">Edit Information</a></li>
-                        <li><a class="dropdown-item text-danger" onclick="ShowDeleteModal('@patient.Id')" href="#">Delete Information</a></li>
+                        <li><a class="dropdown-item" asp-page="EditPatient" asp-route-postId="@patient.Id" asp-route-maktab="114">Edit Information</a></li>
                     </ul>
                 </div>
-                <div class="card-img-top" style="height: 400px; background-image: url('Hospital_Pic_3.png'); background-repeat: no-repeat; background-position: center; background-size: cover"></div>
+                <div class="card-img-top" style="height: 400px; background-image: url('Personal_Information.jpg'); background-repeat: no-repeat; background-position: center; background-size: cover"></div>
                 <div class="card-body">
                     <h5 class="card-title">National Code:@patient.NationalCode</h5>
                     <p class="card-text">Patient Description:@patient.PatientDescription</p>
@@ -33,28 +32,7 @@
                 </div>
             </div>
         }
-        <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Information</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure to delete this Information?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <form method="post" asp-page-handler="Delete">
-                            <div class="mb-3 d-none">
-                                <input name="patientId" class="form-control" id="patientIdInput">
-                            </div>
-                            <button type="submit" class="btn btn-danger">Yes, Delete Information.</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
 
     }
@@ -87,12 +65,3 @@
     }
 }
 
-<script>
-    function ShowDeleteModal(patientId) {
-        let input = document.getElementById("patientIdInput");
-        console.log(input)
-        input.setAttribute("value", patientId);
-        let modal = new bootstrap.Modal(document.getElementById("delete-modal"));
-        modal.show();
-    }
-</script>
