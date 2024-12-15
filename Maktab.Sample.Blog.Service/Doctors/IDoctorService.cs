@@ -21,6 +21,6 @@ namespace Maktab.Sample.Blog.Service.Doctors
         Task<DoctorArgs> GetDoctorByIdAsync(Guid id);
         Task DeleteDoctorByIdAsync(Guid id);
         Task<List<DoctorArgs>> GetAllDoctorsAsync(Expression<Func<Doctor, bool>> predicate);
-
+        Task<List<DoctorArgs>> GetAllDoctorsByDepartmentIdAsync(Guid departmentId);
     }
 }

@@ -71,6 +71,13 @@ namespace Maktab.Sample.Blog.Service.Doctors
             return doctors.Select(p => p.MapToDoctorArgs()).ToList();
         }
 
+        public async Task<List<DoctorArgs>> GetAllDoctorsByDepartmentIdAsync(Guid departmentId)
+        {
+            var doctors = await _repository.QueryAsync(d => d.DepartmentId == departmentId/*,include: p => p.Include(x => x.Infirmary)*/);
+
+            return doctors.Select(d => d.MapToDoctorArgs()).ToList();
+        }
+
         public async Task<DoctorArgs> GetDoctorByIdAsync(Guid id)
         {
             var doctor = await _repository.GetAsync(id/*,include: p => p.Include(x => x.Department)*/);

@@ -30,7 +30,8 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Doctors
         public async Task OnGetAsync(Guid departmentId)
         {
             DepartmentId = departmentId;
-            DoctorsModel = await _doctorService.GetAllDoctorsAsync(p => true);
+            //DoctorsModel = await _doctorService.GetAllDoctorsAsync(p => true);
+            DoctorsModel = await _doctorService.GetAllDoctorsByDepartmentIdAsync(DepartmentId);
         }
 
 
@@ -49,7 +50,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Doctors
             };
 
             var result = await _doctorService.AddDoctorAsync(doctorCommand);
-            return RedirectToPage("/Doctors/Index");
+            return RedirectToPage("/Infirmaries/Index");
         }
 
 
@@ -66,7 +67,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Doctors
                 ViewData["ErrorMessage"] = ex.Message;
             }
 
-            return RedirectToPage("/Doctors/Index");
+            return RedirectToPage("/Infirmaries/Index");
         }
     }
 }

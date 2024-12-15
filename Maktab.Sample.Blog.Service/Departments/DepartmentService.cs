@@ -75,10 +75,17 @@ namespace Maktab.Sample.Blog.Service.Departments
 
         public async Task<List<DepartmentArgs>> GetAllDepartmentsAsync(Expression<Func<Department, bool>> predicate)
         {
-            var departments = await _repository.QueryAsync(predicate ?? (p => true)/*,include: p => p.Include(x => x.Infirmary)*/);
+            var departments = await _repository.QueryAsync(predicate ?? (p => true), include: p => p.Include(x => x.Doctors));
 
             return departments.Select(p => p.MapToDepartmentArgs()).ToList();
             
+        }
+
+        public async Task<List<DepartmentArgs>> GetAllDepartmentsByInfirmaryIdAsync(Guid infirmaryId)
+        {
+            var departments = await _repository.QueryAsync(d => d.InfirmaryId == infirmaryId, include: p => p.Include(x => x.Doctors));
+
+            return departments.Select(p => p.MapToDepartmentArgs()).ToList();
         }
 
         public async Task<DepartmentArgs> GetDepartmentByIdAsync(Guid id)

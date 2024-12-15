@@ -45,7 +45,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
                 {
                     await _departmentService.UpdateDepartmentAsync(command);
                     TempData["SuccessMessage"] = "Department updated successfully.";
-                    return RedirectToPage("/Departments/Index");
+                    return RedirectToPage("/Infirmaries/Index");
 
                 }
                 catch (Exception e)

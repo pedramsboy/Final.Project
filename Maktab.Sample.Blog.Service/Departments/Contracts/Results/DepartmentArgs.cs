@@ -3,6 +3,7 @@ using Maktab.Sample.Blog.Domain.Departments;
 using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Service.Comments.Contracts.Results;
+using Maktab.Sample.Blog.Service.Doctors.Contracts.Results;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Results;
 using Maktab.Sample.Blog.Service.Users.Contracts.Result;
@@ -20,8 +21,8 @@ namespace Maktab.Sample.Blog.Service.Departments.Contracts.Results
         public string DepartmentService { get; set; }
         public Guid InfirmaryId { get; set; }
         //public UserArgs? Author { get; set; }
-        public InfirmaryArgs? Infirmary { get; set; }
-        //public List<DoctorArgs> Doctors { get; set; } = new();
+       // public InfirmaryArgs? Infirmary { get; set; }
+        public List<DoctorArgs> Doctors { get; set; } = new();
     }
 
     public static class DepartmentArgsMapper
@@ -35,8 +36,8 @@ namespace Maktab.Sample.Blog.Service.Departments.Contracts.Results
                 DepartmentService = department.DepartmentService,
                 InfirmaryId = department.InfirmaryId,
                 //Author = department.Author?.MapToUserArgs(),
-                Infirmary = department.Infirmary?.MapToInfirmaryArgs(),
-                //Doctors = department.Doctors.Select(c => c.MapToDoctorArgs()).ToList(),
+                //Infirmary = department.Infirmary?.MapToInfirmaryArgs(),
+                Doctors = department.Doctors.Select(c => c.MapToDoctorArgs()).ToList(),
                 
             };
         }

@@ -31,7 +31,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
         public async Task OnGetAsync(Guid infirmaryId)
         {
             InfirmaryId = infirmaryId;
-            DepartmentsModel = await _departmentService.GetAllDepartmentsAsync(p => true);
+            DepartmentsModel = await _departmentService.GetAllDepartmentsByInfirmaryIdAsync(InfirmaryId);
         }
 
         public AddDepartmentModel AddDepartmentModel { get; set; }
@@ -47,7 +47,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
             };
 
             var result = await _departmentService.AddDepartmentAsync(departmentCommand);
-            return RedirectToPage("/Departments/Index");
+            return RedirectToPage("/Infirmaries/Index");
         }
 
         public async Task<IActionResult> OnPostDeleteAsync()
@@ -64,7 +64,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
                 ViewData["ErrorMessage"] = ex.Message;
             }
 
-            return RedirectToPage("/Departments/Index");
+            return RedirectToPage("/Infirmaries/Index");
         }
     }
 }

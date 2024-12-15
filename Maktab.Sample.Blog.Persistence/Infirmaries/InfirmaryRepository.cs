@@ -9,6 +9,11 @@ public class InfirmaryRepository : GenericRepository<Infirmary, BlogDbContext>, 
     {
     }
 
+    public Task<List<Infirmary>> GetAllInfirmaries()
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<List<Infirmary>> SearchInfirmaryByTitle(string infirmaryName)
     {
         return await QueryAsync(p => p.InfirmaryName.Contains(infirmaryName));

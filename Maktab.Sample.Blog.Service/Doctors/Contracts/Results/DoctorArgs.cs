@@ -23,7 +23,7 @@ namespace Maktab.Sample.Blog.Service.Doctors.Contracts.Results
 
         public Guid DepartmentId { get; set; }
 
-        public DepartmentArgs? Department { get; set; }
+        //public DepartmentArgs? Department { get; set; }
 
         
     }
@@ -41,7 +41,7 @@ namespace Maktab.Sample.Blog.Service.Doctors.Contracts.Results
                 LevelOfSpeciality = doctor.LevelOfSpeciality,
                 DoctorService = doctor.DoctorService,
                 DepartmentId = doctor.DepartmentId,
-                Department = doctor.Department?.MapToDepartmentArgs(),
+                //Department = doctor.Department?.MapToDepartmentArgs(),
 
             };
         }

@@ -51,7 +51,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Doctors
                 {
                     await _doctorService.UpdateDoctorAsync(command);
                     TempData["SuccessMessage"] = "Doctor updated successfully.";
-                    return RedirectToPage("/Doctors/Index");
+                    return RedirectToPage("/Infirmaries/Index");
 
                 }
                 catch (Exception e)
