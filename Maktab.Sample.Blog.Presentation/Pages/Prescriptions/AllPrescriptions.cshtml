@@ -3,18 +3,18 @@
 @addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    Layout = "_Layout";
+    Layout = "_UserLayout";
 }
 
-<h1>List Of Each Doctors Appointments</h1>
+<h1>List Of Appointments</h1>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Id</th>
+           @*  <th>Id</th> *@
             <th>Appointment</th>
             <th>Prescription Description</th>
-            <th>Doctor ID</th>
+            <th>Doctor Tracking Code</th>
         </tr>
     </thead>
 
@@ -22,14 +22,13 @@
         @foreach (var prescription in Model.PrescriptionsModel)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => prescription.Id)</td>
+                @* <td>@Html.DisplayFor(modelItem => prescription.Id)</td> *@
                 <td>@Html.DisplayFor(modelItem => prescription.Appointment)</td>
                 <td>@Html.DisplayFor(modelItem => prescription.PrescriptionDescription)</td>
                 <td>@Html.DisplayFor(modelItem => prescription.DoctortId)</td>
-                <td>
+                @* <td>
                     <a asp-action="#" asp-route-id="#">Delete</a>
-                    <a asp-action="#" asp-route-id="#">Edit</a>
-                </td>
+                </td> *@
             </tr>
         }
 

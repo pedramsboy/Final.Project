@@ -4,6 +4,7 @@ using Maktab.Sample.Blog.Service.Prescriptions;
 using Maktab.Sample.Blog.Service.Prescriptions.Contracts.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
 
 namespace Maktab.Sample.Blog.Presentation.Pages.Prescriptions
 {
@@ -13,8 +14,8 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Prescriptions
        public List<PrescriptionArgs> PrescriptionsModel { get; set; }
 
         public Guid PrescriptionId { get; set; }
-        public Guid DoctorId { get; set; }
-        //public Guid AuthorId { get; set; }
+        
+        public Guid AuthorId { get; set; }
 
         private readonly IPrescriptionService _prescriptionService;
 
@@ -23,10 +24,12 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Prescriptions
             _prescriptionService = PrescriptionService;
         }
 
-        public async Task OnGetAsync(Guid doctorId)
+        public async Task OnGetAsync()
         {
-            DoctorId = doctorId;
-            PrescriptionsModel = await _prescriptionService.GetAllPrescriptionsByDoctorIdAsync(DoctorId);
+
+            var userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
+            AuthorId = userId;
+            PrescriptionsModel = await _prescriptionService.GetAllPrescriptionsByAuthorIdAsync(AuthorId);
         }
 
         
@@ -44,7 +47,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Prescriptions
                 ViewData["ErrorMessage"] = ex.Message;
             }
 
-            return RedirectToPage("/Prescriptions/AllPrescriptionsModel");
+            return RedirectToPage("/Prescriptions/AllPrescriptions");
         }
 
     }

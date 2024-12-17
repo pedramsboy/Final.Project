@@ -57,7 +57,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Prescriptions
             try
             {
                 await _prescriptionService.DeletePrescriptionByIdAsync(PrescriptionId);
-                TempData["SuccessMessage"] = "Appointment Has been Selected successfully.";
+                TempData["SuccessMessage"] = "Appointment Has been Deleted successfully.";
             }
             catch (Exception ex)
             {

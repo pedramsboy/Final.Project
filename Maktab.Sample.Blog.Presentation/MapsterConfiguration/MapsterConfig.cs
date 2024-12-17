@@ -31,5 +31,6 @@ public static class MapsterConfig
         TypeAdapterConfig<UpdateDoctorModel, UpdateDoctorCommand>.NewConfig();
 
         TypeAdapterConfig<UpdatePrescriptionModel, UpdatePrescriptionCommand>.NewConfig();
+
     }
 }

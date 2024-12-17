@@ -1,0 +1,27 @@
+﻿@page
+@model Maktab.Sample.Blog.Presentation.Pages.Prescriptions.EditPrescriptionModel
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+}
+
+<form method="post" asp-page-handler="Update">
+
+    <div class="mb-3">
+        <label asp-for="UpdatePrescriptionModel.Appointment" class="form-label">Appointment Time</label>
+        <input asp-for="UpdatePrescriptionModel.Appointment" class="form-control" id="appointmentInput">
+        <span asp-validation-for="UpdatePrescriptionModel.Appointment" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="UpdatePrescriptionModel.PrescriptionDescription" class="form-label">Prescription Description</label>
+        <input asp-for="UpdatePrescriptionModel.PrescriptionDescription" class="form-control" id="prescriptionDescriptionInput">
+        <span asp-validation-for="UpdatePrescriptionModel.PrescriptionDescription" class="text-danger"></span>
+    </div>
+    <div class="mb-3 d-none">
+        <input asp-for="UpdatePrescriptionModel.Id" class="form-control" id="postIdInput">
+    </div>
+    <button type="submit" class="btn btn-outline-info">Update</button>
+    <a class="btn btn-outline-secondary" asp-page="Index">Cancel</a>
+</form>
