@@ -1,0 +1,38 @@
+﻿@page
+@using Maktab.Sample.Blog.Domain.prescription
+@model List<Prescription>
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+}
+
+<h1>List Of Each Doctors Appointments</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Appointment</th>
+            <th>Prescription Description</th>
+            <th>Doctor ID</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var prescription in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => prescription.Id)</td>
+                <td>@Html.DisplayFor(modelItem => prescription.Appointment)</td>
+                <td>@Html.DisplayFor(modelItem => prescription.PrescriptionDescription)</td>
+                <td>@Html.DisplayFor(modelItem => prescription.DoctorId)</td>
+                <td>
+                    <a asp-action="#" asp-route-id="#">Delete</a>
+                    <a asp-action="#" asp-route-id="#">Edit</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

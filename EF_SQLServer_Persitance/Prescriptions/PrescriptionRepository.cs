@@ -15,5 +15,10 @@ namespace Maktab.Sample.Blog.Persistence.Prescriptions
         public PrescriptionRepository(SqlServerDbContext dbContext, ILogger<PrescriptionRepository> logger) : base(dbContext, logger)
         {
         }
+
+        public async Task<List<Prescription>> PrescriptionsList(Guid doctorId)
+        {
+            return await QueryAsync(p => p.DoctorId==doctorId);
+        }
     }
 }

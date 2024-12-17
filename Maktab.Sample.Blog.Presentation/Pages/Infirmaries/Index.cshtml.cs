@@ -43,7 +43,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Infirmaries
                 Street = AddInfirmaryModel.Street,
                 PhoneNumber = AddInfirmaryModel.PhoneNumber,
                 IsAroundTheClock = AddInfirmaryModel.IsAroundTheClock,
-                UserName = User.Identity?.Name ?? string.Empty
+                //UserName = User.Identity?.Name ?? string.Empty
             };
 
             var result = await _infirmaryService.AddInfirmaryAsync(infirmaryCommand);
@@ -52,11 +52,11 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Infirmaries
 
         public async Task<IActionResult> OnPostDeleteAsync()
         {
-            var userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
+            //var userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
 
             try
             {
-                await _infirmaryService.DeleteInfirmaryByIdAsync(InfirmaryId, userId);
+                await _infirmaryService.DeleteInfirmaryByIdAsync(InfirmaryId/*, userId*/);
                 TempData["SuccessMessage"] = "Infirmary deleted successfully.";
             }
             catch (Exception ex)

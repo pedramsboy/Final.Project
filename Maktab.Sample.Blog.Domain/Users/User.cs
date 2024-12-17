@@ -31,7 +31,7 @@ public class User : IdentityUser<Guid>
     public List<Post> Posts { get; set; } = new();
     public List<Comment> Comments { get; set; } = new();
     public List<Like> Likes { get; set; } = new();
-    public List<Infirmary> Infirmaries { get; set; } = new();
+    //public List<Infirmary> Infirmaries { get; set; } = new();
 
     //public List<Department> Departments { get; set; } = new();
 

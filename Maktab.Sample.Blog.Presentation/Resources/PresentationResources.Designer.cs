@@ -61,6 +61,15 @@ namespace Maktab.Sample.Blog.Presentation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Appointment.
+        /// </summary>
+        public static string AppointmentProp {
+            get {
+                return ResourceManager.GetString("AppointmentProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         public static string City {
@@ -300,6 +309,15 @@ namespace Maktab.Sample.Blog.Presentation.Resources {
         public static string PostTitleProp {
             get {
                 return ResourceManager.GetString("PostTitleProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prescription Description.
+        /// </summary>
+        public static string PrescriptionDescriptionProp {
+            get {
+                return ResourceManager.GetString("PrescriptionDescriptionProp", resourceCulture);
             }
         }
         

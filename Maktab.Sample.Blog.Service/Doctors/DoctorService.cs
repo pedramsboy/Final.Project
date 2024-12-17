@@ -6,6 +6,7 @@ using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Service.Configurations;
 using Maktab.Sample.Blog.Service.Doctors.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Doctors.Contracts.Results;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -66,23 +67,21 @@ namespace Maktab.Sample.Blog.Service.Doctors
 
         public async Task<List<DoctorArgs>> GetAllDoctorsAsync(Expression<Func<Doctor, bool>> predicate)
         {
-            var doctors = await _repository.QueryAsync(predicate ?? (p => true)/*,include: p => p.Include(x => x.Department)*/);
+            var doctors = await _repository.QueryAsync(predicate ?? (p => true)/*, include: p => p.Include(x => x.Prescriptions)*/);
 
             return doctors.Select(p => p.MapToDoctorArgs()).ToList();
         }
 
         public async Task<List<DoctorArgs>> GetAllDoctorsByDepartmentIdAsync(Guid departmentId)
         {
-            var doctors = await _repository.QueryAsync(d => d.DepartmentId == departmentId/*,include: p => p.Include(x => x.Infirmary)*/);
+            var doctors = await _repository.QueryAsync(d => d.DepartmentId == departmentId/*, include: p => p.Include(x => x.Prescriptions)*/);
 
             return doctors.Select(d => d.MapToDoctorArgs()).ToList();
         }
 
         public async Task<DoctorArgs> GetDoctorByIdAsync(Guid id)
         {
-            var doctor = await _repository.GetAsync(id/*,include: p => p.Include(x => x.Department)*/);
-
-
+            var doctor = await _repository.GetAsync(id/*, include: p => p.Include(x => x.Prescriptions)*/);
 
 
             if (doctor == null)

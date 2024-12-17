@@ -24,7 +24,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results
 
         public List<DepartmentArgs> Departments { get; set; } = new();
        
-        public UserArgs? Author { get; set; }
+       // public UserArgs? Author { get; set; }
     }
 
     public static class InfirmaryArgsMapper
@@ -41,7 +41,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results
                 Street = infirmary.Street,
                 PhoneNumber = infirmary.PhoneNumber,
                 IsAroundTheClock = infirmary.IsAroundTheClock,
-                Author = infirmary.Author?.MapToUserArgs(),
+                //Author = infirmary.Author?.MapToUserArgs(),
                 Departments = infirmary.Departments.Select(d => d.MapToDepartmentArgs()).ToList(),
 
             };

@@ -57,16 +57,16 @@ public class EmptyPhoneNumberException : BaseEmptyArgumentException
     }
 }
 
-public class EmptyAuthorIdException : BaseEmptyArgumentException
-{
-    public EmptyAuthorIdException() : base("Author id", 7)
-    {
-    }
-}
+//public class EmptyAuthorIdException : BaseEmptyArgumentException
+//{
+//    public EmptyAuthorIdException() : base("Author id", 7)
+//    {
+//    }
+//}
 
 public class EmptyIsAroundTheClockException : BaseEmptyArgumentException
 {
-    public EmptyIsAroundTheClockException() : base("Is Around The Clock", 8)
+    public EmptyIsAroundTheClockException() : base("Is Around The Clock", 7)
     {
     }
 }

@@ -5,6 +5,7 @@ using Maktab.Sample.Blog.Service.Doctors.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Patients.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Commands;
+using Maktab.Sample.Blog.Service.Prescriptions.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Users.Contracts.Commands;
 using Mapster;
 
@@ -28,5 +29,7 @@ public static class MapsterConfig
         TypeAdapterConfig<UpdatePatientModel, UpdatePatientCommand>.NewConfig();
 
         TypeAdapterConfig<UpdateDoctorModel, UpdateDoctorCommand>.NewConfig();
+
+        TypeAdapterConfig<UpdatePrescriptionModel, UpdatePrescriptionCommand>.NewConfig();
     }
 }

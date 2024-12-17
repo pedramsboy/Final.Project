@@ -36,11 +36,11 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
         }
         public async Task<GeneralResult> AddInfirmaryAsync(AddInfirmaryCommand command)
         {
-            var user = await _userManager.FindByNameAsync(command.UserName);
-            if (user == null)
-                throw new ItemNotFoundException(nameof(User));
+            //var user = await _userManager.FindByNameAsync(command.UserName);
+            //if (user == null)
+            //    throw new ItemNotFoundException(nameof(User));
 
-            var infirmary = new Infirmary(command.InfirmaryName, command.SupportedInsurance, command.State, command.City, command.Street, command.PhoneNumber,command.IsAroundTheClock, user.Id);
+            var infirmary = new Infirmary(command.InfirmaryName, command.SupportedInsurance, command.State, command.City, command.Street, command.PhoneNumber,command.IsAroundTheClock/*, user.Id*/);
             await _repository.AddAsync(infirmary);
             return new GeneralResult
             {
@@ -48,7 +48,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
             };
         }
 
-        public async Task DeleteInfirmaryByIdAsync(Guid id, Guid userId)
+        public async Task DeleteInfirmaryByIdAsync(Guid id/*, Guid userId*/)
         {
             if (id == Guid.Empty)
                 throw new InvalidOperationException("Id is not valid.");
@@ -63,7 +63,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
 
         public async Task<List<InfirmaryArgs>> GetAllInfirmariesAsync(Expression<Func<Infirmary, bool>> predicate=null)
         {
-            var infirmaries = await _repository.QueryAsync(predicate ?? (p => true), include: p => p.Include(x => x.Author)
+            var infirmaries = await _repository.QueryAsync(predicate ?? (p => true), include: p => p/*.Include(x => x.Author)*/
                                                                                                    .Include(x => x.Departments));
 
             return infirmaries.Select(i => i.MapToInfirmaryArgs()).ToList();
@@ -73,7 +73,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
         public async Task<InfirmaryArgs> GetInfirmaryByIdAsync(Guid id)
         {
             var infirmary = await _repository.GetAsync(id,
-            include: i => i.Include(x => x.Author)
+            include: i => i/*.Include(x => x.Author)*/
                             .Include(x => x.Departments));
 
             if (infirmary == null)
@@ -83,18 +83,18 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
         }
 
 
-        public async Task UpdateInfirmaryAsync(UpdateInfirmaryCommand command, string userName)
+        public async Task UpdateInfirmaryAsync(UpdateInfirmaryCommand command/*, string userName*/)
         {
             var infirmary = await _repository.GetAsync(command.Id, false);
-            var user = await _userManager.FindByNameAsync(userName);
-            if (user == null)
-                throw new ItemNotFoundException(nameof(User));
+            //var user = await _userManager.FindByNameAsync(userName);
+            //if (user == null)
+            //    throw new ItemNotFoundException(nameof(User));
 
             if (infirmary == null)
                 throw new ItemNotFoundException(nameof(Infirmary));
 
-            if (infirmary.AuthorId != user.Id)
-                throw new PermissionDeniedException();
+            //if (infirmary.AuthorId != user.Id)
+            //    throw new PermissionDeniedException();
 
             infirmary.SetInfirmaryInfo(command.InfirmaryName, command.SupportedInsurance, command.State, command.City, command.Street, command.PhoneNumber, command.IsAroundTheClock);
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF_SQLServer_Persitance.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    [Migration("20241214095348_Teest1")]
-    partial class Teest1
+    [Migration("20241217105718_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,14 +94,9 @@ namespace EF_SQLServer_Persitance.Migrations
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("InfirmaryId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Departments");
                 });
@@ -165,9 +160,6 @@ namespace EF_SQLServer_Persitance.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("City")
                         .IsRequired()
                         .IsUnicode(true)
@@ -216,8 +208,6 @@ namespace EF_SQLServer_Persitance.Migrations
                         .HasColumnType("Nvarchar(500)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
 
                     b.ToTable("Infirmaries");
                 });
@@ -469,6 +459,48 @@ namespace EF_SQLServer_Persitance.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Maktab.Sample.Blog.Domain.prescription.Prescription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Appointment")
+                        .IsRequired()
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(200)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PrescriptionDescription")
+                        .IsUnicode(true)
+                        .HasColumnType("Nvarchar(Max)");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Prescriptions");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
@@ -595,10 +627,6 @@ namespace EF_SQLServer_Persitance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Maktab.Sample.Blog.Domain.Users.User", null)
-                        .WithMany("Departments")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Infirmary");
                 });
 
@@ -611,17 +639,6 @@ namespace EF_SQLServer_Persitance.Migrations
                         .IsRequired();
 
                     b.Navigation("Department");
-                });
-
-            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Infirmaries.Infirmary", b =>
-                {
-                    b.HasOne("Maktab.Sample.Blog.Domain.Users.User", "Author")
-                        .WithMany("Infirmaries")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Likes.Like", b =>
@@ -655,6 +672,21 @@ namespace EF_SQLServer_Persitance.Migrations
                         .IsRequired();
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("Maktab.Sample.Blog.Domain.prescription.Prescription", b =>
+                {
+                    b.HasOne("Maktab.Sample.Blog.Domain.Doctors.Doctor", "Doctor")
+                        .WithMany("Prescriptions")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Maktab.Sample.Blog.Domain.Users.User", null)
+                        .WithMany("Prescriptions")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -713,6 +745,11 @@ namespace EF_SQLServer_Persitance.Migrations
                     b.Navigation("Doctors");
                 });
 
+            modelBuilder.Entity("Maktab.Sample.Blog.Domain.Doctors.Doctor", b =>
+                {
+                    b.Navigation("Prescriptions");
+                });
+
             modelBuilder.Entity("Maktab.Sample.Blog.Domain.Infirmaries.Infirmary", b =>
                 {
                     b.Navigation("Departments");
@@ -729,15 +766,13 @@ namespace EF_SQLServer_Persitance.Migrations
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Departments");
-
-                    b.Navigation("Infirmaries");
-
                     b.Navigation("Likes");
 
                     b.Navigation("Patients");
 
                     b.Navigation("Posts");
+
+                    b.Navigation("Prescriptions");
                 });
 #pragma warning restore 612, 618
         }

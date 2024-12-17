@@ -14,5 +14,10 @@ namespace Maktab.Sample.Blog.Persistence.Prescriptions
         public PrescriptionRepository(BlogDbContext dbContext, ILogger<PrescriptionRepository> logger) : base(dbContext, logger)
         {
         }
+
+        public Task<List<Prescription>> PrescriptionsList(Guid doctorId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

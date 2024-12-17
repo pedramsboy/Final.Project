@@ -11,6 +11,7 @@ using Maktab.Sample.Blog.Service.Doctors;
 using Maktab.Sample.Blog.Service.Infirmaries;
 using Maktab.Sample.Blog.Service.Patients;
 using Maktab.Sample.Blog.Service.Posts;
+using Maktab.Sample.Blog.Service.Prescriptions;
 using Maktab.Sample.Blog.Service.Users;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -37,6 +38,7 @@ builder.Services.AddScoped<IInfirmaryService, InfirmaryService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
+builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
 
 builder.Services.AddIdentity<User, Role>(options =>
     {

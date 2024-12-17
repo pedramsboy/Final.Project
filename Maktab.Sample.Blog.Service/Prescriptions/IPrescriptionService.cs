@@ -20,6 +20,7 @@ namespace Maktab.Sample.Blog.Service.Prescriptions
         Task UpdatePrescriptionAsync(UpdatePrescriptionCommand command);
         Task<PrescriptionArgs> GetPrescriptionByIdAsync(Guid id);
         Task DeletePrescriptionByIdAsync(Guid id);
+        Task HardDeletePrescriptionByIdAsync(Guid id);
         Task<List<PrescriptionArgs>> GetAllPrescriptionsAsync(Expression<Func<Prescription, bool>> predicate);
         Task<List<PrescriptionArgs>> GetAllPrescriptionsByDoctorIdAsync(Guid doctortId);
         Task<List<PrescriptionArgs>> GetAllPrescriptionsByAuthorIdAsync(Guid authortId);

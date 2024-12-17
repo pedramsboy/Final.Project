@@ -15,7 +15,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Commands
         public string Street { get; set; } 
         public string PhoneNumber { get; set; } 
         public string IsAroundTheClock { get; set; }
-        public string UserName { get; set; }
+        //public string UserName { get; set; }
 
        
         

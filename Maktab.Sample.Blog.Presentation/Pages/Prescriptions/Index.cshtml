@@ -1,0 +1,131 @@
+﻿@page
+@model Maktab.Sample.Blog.Presentation.Pages.Prescriptions.IndexModel
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+}
+
+@{
+    DateTime now = DateTime.Now;
+    DateTime startTime = new DateTime(now.Year, now.Month, now.Day, 8, 0, 0); // Today at 8:00 AM
+    int intervalMinutes = 15;
+    int totalMinutes = 12 * 60; // 12 hours
+}
+
+<form method="post" asp-page-handler="Create">
+    <div class="mb-3 d-none">
+        <label asp-for="AddPrescriptionModel.Appointment" class="form-label">Appointment Time</label>
+        <input asp-for="AddPrescriptionModel.Appointment" class="form-control" id="appointmentInput">
+        <span asp-validation-for="AddPrescriptionModel.Appointment" class="text-danger"></span>
+    </div>
+    <div class="mb-3 d-none">
+        <label asp-for="AddPrescriptionModel.PrescriptionDescription" class="form-label">Prescription Description</label>
+        <input asp-for="AddPrescriptionModel.PrescriptionDescription" class="form-control" id="prescriptionDescriptionInput">
+        <span asp-validation-for="AddPrescriptionModel.PrescriptionDescription" class="text-danger"></span>
+    </div>
+
+    <div class="btn-group dropstart">
+        <button type="button" class="btn btn-secondary bg-transparent border-0 text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-three-dots-vertical"></i>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item">Select Appointment Time</a></li>
+
+            @for (int minutes = 0; minutes < totalMinutes; minutes += intervalMinutes)
+            {
+                var startSlot = startTime.AddMinutes(minutes);
+                var endSlot = startTime.AddMinutes(minutes + intervalMinutes);
+                string timeSlot = $"{startSlot:HH:mm}-{endSlot:HH:mm}";
+
+                <li><a class="dropdown-item text-danger" onclick="SetAppointmentTime('@timeSlot')" href="#">@timeSlot</a></li>
+            }
+
+
+        </ul>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AddPrescriptionModel.DoctorId" class="form-label d-none">Doctor Id</label>
+        <input asp-for="AddPrescriptionModel.DoctorId" class="form-control d-none" id="doctorIdInput" value='@Model.DoctorId'>
+        <span asp-validation-for="AddPrescriptionModel.DoctorId" class="text-danger d-none"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="mb-3">
+    <a asp-controller="Prescription" asp-action="GetAllPrescriptions" asp-route-doctorId="@Model.DoctorId">Doctor Appointments List</a>
+</div>
+
+@{
+    var counter = 1;
+}
+
+
+@foreach (var prescription in Model.PrescriptionsModel)
+{
+    <div class="card mt-2 position-relative">
+        <div class="btn-group dropstart position-absolute top-0 end-0">
+            <button type="button" class="btn btn-secondary bg-transparent border-0 text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-page="#" asp-route-postId="@prescription.Id" asp-route-maktab="114">Edit Prescription</a></li>
+                <li><a class="dropdown-item text-danger" onclick="ShowDeleteModal('@prescription.Id')" href="#">Delete Prescription</a></li>
+            </ul>
+        </div>
+        <div class="card-img-top" style="height: 400px; background-image: url('Appoint_Time.png'); background-repeat: no-repeat; background-position: center; background-size: cover"></div>
+        <div class="card-body">
+            <h5 class="card-title">@prescription.Appointment</h5>
+            <p class="card-text">Patient:@prescription.Author!.GetFullName()</p>
+            <p class="card-text">@prescription.PrescriptionDescription</p>
+            <p class="card-text d-none">Doctor id:@prescription.DoctortId</p>
+        </div>
+    </div>
+}
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete this Prescription?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="post" asp-page-handler="Delete">
+                    <div class="mb-3 d-none">
+                        <input name="PrescriptionId" class="form-control" id="prescriptionIdInput">
+                    </div>
+                    <button type="submit" class="btn btn-danger">Yes, Delete Prescription.</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function ShowDeleteModal(prescriptionId) {
+        let input = document.getElementById("prescriptionIdInput");
+        console.log(input)
+        input.setAttribute("value", prescriptionId);
+        let modal = new bootstrap.Modal(document.getElementById("delete-modal"));
+        modal.show();
+    }
+</script>
+
+
+<script>
+    function SetAppointmentTime(appointmentTime) {
+
+        let input = document.getElementById("appointmentInput");
+        console.log(input)
+        input.setAttribute("value", appointmentTime);
+
+    }
+
+
+</script>

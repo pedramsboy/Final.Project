@@ -2,6 +2,7 @@
 using Maktab.Sample.Blog.Domain.Departments;
 using Maktab.Sample.Blog.Domain.Doctors;
 using Maktab.Sample.Blog.Service.Departments.Contracts.Results;
+using Maktab.Sample.Blog.Service.Prescriptions.Contracts.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,8 @@ namespace Maktab.Sample.Blog.Service.Doctors.Contracts.Results
         public Guid DepartmentId { get; set; }
 
         //public DepartmentArgs? Department { get; set; }
+        public List<PrescriptionArgs> Prescriptions { get; set; } = new();
 
-        
     }
 
     public static class DoctortArgsMapper
@@ -41,8 +42,7 @@ namespace Maktab.Sample.Blog.Service.Doctors.Contracts.Results
                 LevelOfSpeciality = doctor.LevelOfSpeciality,
                 DoctorService = doctor.DoctorService,
                 DepartmentId = doctor.DepartmentId,
-                //Department = doctor.Department?.MapToDepartmentArgs(),
-
+                Prescriptions = doctor.Prescriptions.Select(c => c.MapToPrescriptionArgs()).ToList(),
             };
         }
     }

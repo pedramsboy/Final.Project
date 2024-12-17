@@ -61,6 +61,28 @@ namespace EF_SQLServer_Persitance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Infirmaries",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    InfirmaryName = table.Column<string>(type: "Nvarchar(200)", nullable: false),
+                    SupportedInsurance = table.Column<string>(type: "Nvarchar(500)", nullable: false),
+                    State = table.Column<string>(type: "Nvarchar(200)", nullable: false),
+                    City = table.Column<string>(type: "Nvarchar(200)", nullable: false),
+                    Street = table.Column<string>(type: "Nvarchar(200)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "Nvarchar(200)", nullable: false),
+                    IsAroundTheClock = table.Column<string>(type: "Nvarchar(500)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Infirmaries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -167,35 +189,6 @@ namespace EF_SQLServer_Persitance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Infirmaries",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    InfirmaryName = table.Column<string>(type: "Nvarchar(200)", nullable: false),
-                    SupportedInsurance = table.Column<string>(type: "Nvarchar(500)", nullable: false),
-                    State = table.Column<string>(type: "Nvarchar(200)", nullable: false),
-                    City = table.Column<string>(type: "Nvarchar(200)", nullable: false),
-                    Street = table.Column<string>(type: "Nvarchar(200)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "Nvarchar(200)", nullable: false),
-                    IsAroundTheClock = table.Column<string>(type: "Nvarchar(500)", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Infirmaries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Infirmaries_AspNetUsers_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Patients",
                 columns: table => new
                 {
@@ -253,7 +246,6 @@ namespace EF_SQLServer_Persitance.Migrations
                     DepartmentName = table.Column<string>(type: "Nvarchar(200)", nullable: false),
                     DepartmentService = table.Column<string>(type: "Nvarchar(Max)", nullable: false),
                     InfirmaryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -262,11 +254,6 @@ namespace EF_SQLServer_Persitance.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Departments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Departments_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Departments_Infirmaries_InfirmaryId",
                         column: x => x.InfirmaryId,
@@ -331,6 +318,63 @@ namespace EF_SQLServer_Persitance.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Doctors",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "Nvarchar(200)", nullable: false),
+                    LastName = table.Column<string>(type: "Nvarchar(200)", nullable: false),
+                    MedicalSystemCode = table.Column<string>(type: "Nvarchar(200)", nullable: false),
+                    LevelOfSpeciality = table.Column<string>(type: "Nvarchar(200)", nullable: false),
+                    DoctorService = table.Column<string>(type: "Nvarchar(500)", nullable: false),
+                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Doctors", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Doctors_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Prescriptions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Appointment = table.Column<string>(type: "Nvarchar(200)", nullable: false),
+                    PrescriptionDescription = table.Column<string>(type: "Nvarchar(Max)", nullable: true),
+                    DoctorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prescriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Prescriptions_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Prescriptions_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -386,14 +430,9 @@ namespace EF_SQLServer_Persitance.Migrations
                 column: "InfirmaryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Departments_UserId",
-                table: "Departments",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Infirmaries_AuthorId",
-                table: "Infirmaries",
-                column: "AuthorId");
+                name: "IX_Doctors_DepartmentId",
+                table: "Doctors",
+                column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Likes_PostId",
@@ -414,6 +453,16 @@ namespace EF_SQLServer_Persitance.Migrations
                 name: "IX_Posts_AuthorId",
                 table: "Posts",
                 column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Prescriptions_DoctorId",
+                table: "Prescriptions",
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Prescriptions_UserId",
+                table: "Prescriptions",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -438,25 +487,31 @@ namespace EF_SQLServer_Persitance.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Departments");
-
-            migrationBuilder.DropTable(
                 name: "Likes");
 
             migrationBuilder.DropTable(
                 name: "Patients");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Prescriptions");
 
             migrationBuilder.DropTable(
-                name: "Infirmaries");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
+                name: "Doctors");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Departments");
+
+            migrationBuilder.DropTable(
+                name: "Infirmaries");
         }
     }
 }

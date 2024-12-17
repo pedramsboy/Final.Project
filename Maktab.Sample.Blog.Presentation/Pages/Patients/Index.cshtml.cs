@@ -11,6 +11,7 @@ using System.Security.Claims;
 
 namespace Maktab.Sample.Blog.Presentation.Pages.Patients
 {
+    [BindProperties]
     public class IndexModel : PageModel
     {
 

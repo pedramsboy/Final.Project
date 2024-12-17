@@ -90,7 +90,7 @@ namespace Maktab.Sample.Blog.Service.Departments
 
         public async Task<DepartmentArgs> GetDepartmentByIdAsync(Guid id)
         {
-            var department = await _repository.GetAsync(id/*,include: p => p.Include(x => x.Infirmary)*/);
+            var department = await _repository.GetAsync(id, include: p => p.Include(x => x.Doctors));
             
             
 

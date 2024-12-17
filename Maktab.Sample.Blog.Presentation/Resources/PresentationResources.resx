@@ -219,4 +219,10 @@
   <data name="MedicalSystemStringValidationMessage" xml:space="preserve">
     <value>Medical System Code Should Consist of Only Numbers</value>
   </data>
+  <data name="AppointmentProp" xml:space="preserve">
+    <value>Appointment</value>
+  </data>
+  <data name="PrescriptionDescriptionProp" xml:space="preserve">
+    <value>Prescription Description</value>
+  </data>
 </root>

@@ -30,7 +30,7 @@ namespace Maktab.Sample.Blog.Domain.prescription
         /// <summary>
         ///Each Prescription Description
         /// </summary>
-        public string PrescriptionDescription { get; set; } = string.Empty;
+        public string? PrescriptionDescription { get; set; }
 
         ///********************* navigation properties ********************/
         /// <summary>
@@ -57,8 +57,8 @@ namespace Maktab.Sample.Blog.Domain.prescription
             if (string.IsNullOrWhiteSpace(Appointment))
                 throw new EmptyAppointmentException();
 
-            if (string.IsNullOrWhiteSpace(PrescriptionDescription))
-                throw new EmptyPrescriptionDescriptionException();
+            //if (string.IsNullOrWhiteSpace(PrescriptionDescription))
+            //    throw new EmptyPrescriptionDescriptionException();
 
             if (DoctorId == null || DoctorId == Guid.Empty)
                 throw new EmptyDoctorIdException();

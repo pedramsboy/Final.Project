@@ -68,6 +68,7 @@
             <p class="card-text">@doctor.LevelOfSpeciality</p>
             <p class="card-text">Services :@doctor.DoctorService</p>
             <p class="card-text d-none">Department id:@doctor.DepartmentId</p>
+            <a asp-page="/Prescriptions/Index" asp-route-doctorId="@doctor.Id">Appointment List</a>
         </div>
     </div>
 }
