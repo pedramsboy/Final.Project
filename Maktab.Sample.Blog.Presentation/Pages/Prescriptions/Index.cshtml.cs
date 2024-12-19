@@ -1,3 +1,4 @@
+using Maktab.Sample.Blog.Abstraction.Presistence;
 using Maktab.Sample.Blog.Domain.Departments;
 using Maktab.Sample.Blog.Presentation.Pages.Models;
 using Maktab.Sample.Blog.Service.Doctors;
@@ -14,11 +15,12 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Prescriptions
     [BindProperties]
     public class IndexModel : PageModel
     {
-        public List<PrescriptionArgs> PrescriptionsModel { get; set; }
+        //public List<PrescriptionArgs> PrescriptionsModel { get; set; }
 
+        public GetPrescriptionsListResult PrescriptionsModel { get; set; }
         public Guid PrescriptionId { get; set; }
         public Guid DoctorId { get; set; }
-        //public Guid AuthorId { get; set; }
+        
 
         private readonly IPrescriptionService _prescriptionService;
 
@@ -27,10 +29,19 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Prescriptions
             _prescriptionService = PrescriptionService;
         }
 
-        public async Task OnGetAsync(Guid doctorId)
+        public async Task OnGetAsync(Guid doctorId, [FromQuery] int pageSize = 3, [FromQuery] int pageNumber = 0)
         {
             DoctorId = doctorId;
-            PrescriptionsModel = await _prescriptionService.GetAllPrescriptionsByDoctorIdAsync(DoctorId);
+
+            var paging = new Paging()
+            {
+                PageSize = pageSize,
+                PageNumber = pageNumber,
+            };
+
+            //PrescriptionsModel = await _prescriptionService.GetAllPrescriptionsByDoctorIdAsync(DoctorId);
+
+            PrescriptionsModel = await _prescriptionService.GetPrescriptionsListAsync(DoctorId, paging);
         }
 
         public AddPrescriptionModel AddPrescriptionModel { get; set; }

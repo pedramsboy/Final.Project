@@ -1,5 +1,4 @@
 ﻿using Maktab.Sample.Blog.Abstraction.Domain;
-using Maktab.Sample.Blog.Domain.Comments;
 using System;
 using System.Collections.Generic;
 using System.Linq;

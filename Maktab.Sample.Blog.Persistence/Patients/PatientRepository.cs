@@ -15,9 +15,6 @@ namespace Maktab.Sample.Blog.Persistence.Patients
         {
         }
 
-        public async Task<List<Patient>> SearchPatientsByTitle(string title)
-        {
-            return await QueryAsync(p => p.InsuranceName.Contains(title));
-        }
+        
     }
 }

@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Maktab.Sample.Blog.Abstraction.Presistence;
 using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Presentation.Pages.Models;
 using Maktab.Sample.Blog.Service.Infirmaries;
@@ -6,6 +7,7 @@ using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results;
 using Maktab.Sample.Blog.Service.Posts;
 using Maktab.Sample.Blog.Service.Posts.Contracts.Commands;
+using Maktab.Sample.Blog.Service.Posts.Contracts.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -14,8 +16,9 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Infirmaries
     [BindProperties]
     public class IndexModel : PageModel
     {
-        public List<InfirmaryArgs> InfirmariesModel { get; set; }
+        //public List<InfirmaryArgs> InfirmariesModel { get; set; }
 
+        public GetInfirmariesListResult InfirmariesModel { get; set; }
         public Guid InfirmaryId { get; set; }
         private readonly IInfirmaryService _infirmaryService;
 
@@ -25,10 +28,16 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Infirmaries
         }
 
         
-        public async Task OnGetAsync()
+        public async Task OnGetAsync([FromQuery] int pageSize = 3, [FromQuery] int pageNumber = 0)
         {
-            InfirmariesModel = await _infirmaryService.GetAllInfirmariesAsync(p=> true);
-            
+
+            //InfirmariesModel = await _infirmaryService.GetAllInfirmariesAsync(p=> true);
+            var paging = new Paging()
+            {
+                PageSize = pageSize,
+                PageNumber = pageNumber,
+            };
+            InfirmariesModel = await _infirmaryService.GetInfirmariesListAsync(paging);
         }
 
         public AddInfirmaryModel AddInfirmaryModel { get; set; }
@@ -43,7 +52,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Infirmaries
                 Street = AddInfirmaryModel.Street,
                 PhoneNumber = AddInfirmaryModel.PhoneNumber,
                 IsAroundTheClock = AddInfirmaryModel.IsAroundTheClock,
-                //UserName = User.Identity?.Name ?? string.Empty
+                
             };
 
             var result = await _infirmaryService.AddInfirmaryAsync(infirmaryCommand);
@@ -52,11 +61,11 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Infirmaries
 
         public async Task<IActionResult> OnPostDeleteAsync()
         {
-            //var userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
+           
 
             try
             {
-                await _infirmaryService.DeleteInfirmaryByIdAsync(InfirmaryId/*, userId*/);
+                await _infirmaryService.DeleteInfirmaryByIdAsync(InfirmaryId);
                 TempData["SuccessMessage"] = "Infirmary deleted successfully.";
             }
             catch (Exception ex)

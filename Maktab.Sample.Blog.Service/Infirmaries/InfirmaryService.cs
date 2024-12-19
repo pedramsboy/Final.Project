@@ -1,4 +1,5 @@
-﻿using Maktab.Sample.Blog.Abstraction.Service;
+﻿using Maktab.Sample.Blog.Abstraction.Presistence;
+using Maktab.Sample.Blog.Abstraction.Service;
 using Maktab.Sample.Blog.Abstraction.Service.Exceptions;
 using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Domain.Posts;
@@ -7,6 +8,7 @@ using Maktab.Sample.Blog.Service.Configurations;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results;
 using Maktab.Sample.Blog.Service.Posts;
+using Maktab.Sample.Blog.Service.Posts.Contracts.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -36,11 +38,9 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
         }
         public async Task<GeneralResult> AddInfirmaryAsync(AddInfirmaryCommand command)
         {
-            //var user = await _userManager.FindByNameAsync(command.UserName);
-            //if (user == null)
-            //    throw new ItemNotFoundException(nameof(User));
+           
 
-            var infirmary = new Infirmary(command.InfirmaryName, command.SupportedInsurance, command.State, command.City, command.Street, command.PhoneNumber,command.IsAroundTheClock/*, user.Id*/);
+            var infirmary = new Infirmary(command.InfirmaryName, command.SupportedInsurance, command.State, command.City, command.Street, command.PhoneNumber,command.IsAroundTheClock);
             await _repository.AddAsync(infirmary);
             return new GeneralResult
             {
@@ -48,7 +48,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
             };
         }
 
-        public async Task DeleteInfirmaryByIdAsync(Guid id/*, Guid userId*/)
+        public async Task DeleteInfirmaryByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
                 throw new InvalidOperationException("Id is not valid.");
@@ -63,18 +63,25 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
 
         public async Task<List<InfirmaryArgs>> GetAllInfirmariesAsync(Expression<Func<Infirmary, bool>> predicate=null)
         {
-            var infirmaries = await _repository.QueryAsync(predicate ?? (p => true), include: p => p/*.Include(x => x.Author)*/
-                                                                                                   .Include(x => x.Departments));
+            var infirmaries = await _repository.QueryAsync(predicate ?? (p => true), include: p => p.Include(x => x.Departments));
+                                                                                                   
 
             return infirmaries.Select(i => i.MapToInfirmaryArgs()).ToList();
         }
 
+        public async Task<GetInfirmariesListResult> GetInfirmariesListAsync(Paging paging)
+        {
+            var result = await _repository.GetInfirmariesListAsync(paging, include: p => p.Include(x => x.Departments));
+
+            var items = result.items.Select(p => p.MapToInfirmaryArgs()).ToList();
+            return new GetInfirmariesListResult(items, result.totalRows, paging);
+        }
 
         public async Task<InfirmaryArgs> GetInfirmaryByIdAsync(Guid id)
         {
             var infirmary = await _repository.GetAsync(id,
-            include: i => i/*.Include(x => x.Author)*/
-                            .Include(x => x.Departments));
+            include: i => i.Include(x => x.Departments));
+                            
 
             if (infirmary == null)
                 throw new ItemNotFoundException(nameof(Infirmary));
@@ -83,18 +90,15 @@ namespace Maktab.Sample.Blog.Service.Infirmaries
         }
 
 
-        public async Task UpdateInfirmaryAsync(UpdateInfirmaryCommand command/*, string userName*/)
+        public async Task UpdateInfirmaryAsync(UpdateInfirmaryCommand command)
         {
             var infirmary = await _repository.GetAsync(command.Id, false);
-            //var user = await _userManager.FindByNameAsync(userName);
-            //if (user == null)
-            //    throw new ItemNotFoundException(nameof(User));
+            
 
             if (infirmary == null)
                 throw new ItemNotFoundException(nameof(Infirmary));
 
-            //if (infirmary.AuthorId != user.Id)
-            //    throw new PermissionDeniedException();
+            
 
             infirmary.SetInfirmaryInfo(command.InfirmaryName, command.SupportedInsurance, command.State, command.City, command.Street, command.PhoneNumber, command.IsAroundTheClock);
 

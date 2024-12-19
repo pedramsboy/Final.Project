@@ -1,4 +1,5 @@
-﻿using Maktab.Sample.Blog.Abstraction.Service;
+﻿using Maktab.Sample.Blog.Abstraction.Presistence;
+using Maktab.Sample.Blog.Abstraction.Service;
 using Maktab.Sample.Blog.Abstraction.Service.Exceptions;
 using Maktab.Sample.Blog.Domain.Departments;
 using Maktab.Sample.Blog.Domain.Doctors;
@@ -6,6 +7,7 @@ using Maktab.Sample.Blog.Domain.prescription;
 using Maktab.Sample.Blog.Domain.Users;
 using Maktab.Sample.Blog.Service.Configurations;
 using Maktab.Sample.Blog.Service.Doctors;
+using Maktab.Sample.Blog.Service.Doctors.Contracts.Results;
 using Maktab.Sample.Blog.Service.Prescriptions.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Prescriptions.Contracts.Results;
 using Microsoft.AspNetCore.Identity;
@@ -68,7 +70,7 @@ namespace Maktab.Sample.Blog.Service.Prescriptions
 
 
              await _repository.SoftDeleteAsync(id);
-            //await _repository.HardDeleteAsync(id);
+           
         }
 
         public async Task<List<PrescriptionArgs>> GetAllPrescriptionsAsync(Expression<Func<Prescription, bool>> predicate)
@@ -101,6 +103,14 @@ namespace Maktab.Sample.Blog.Service.Prescriptions
                 throw new ItemNotFoundException(nameof(Prescription));
 
             return prescription.MapToPrescriptionArgs();
+        }
+
+        public async Task<GetPrescriptionsListResult> GetPrescriptionsListAsync(Guid doctortId, Paging paging)
+        {
+            var result = await _repository.GetPrescriptionsListAsync(p => p.DoctorId == doctortId, paging, include: p => p.Include(x => x.Author));
+
+            var items = result.items.Select(p => p.MapToPrescriptionArgs()).ToList();
+            return new GetPrescriptionsListResult(items, result.totalRows, paging);
         }
 
         public async Task HardDeletePrescriptionByIdAsync(Guid id)

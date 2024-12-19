@@ -1,4 +1,5 @@
-﻿using Maktab.Sample.Blog.Abstraction.Service;
+﻿using Maktab.Sample.Blog.Abstraction.Presistence;
+using Maktab.Sample.Blog.Abstraction.Service;
 using Maktab.Sample.Blog.Abstraction.Service.Exceptions;
 using Maktab.Sample.Blog.Domain.Departments;
 using Maktab.Sample.Blog.Domain.Infirmaries;
@@ -8,6 +9,7 @@ using Maktab.Sample.Blog.Service.Configurations;
 using Maktab.Sample.Blog.Service.Departments.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Departments.Contracts.Results;
 using Maktab.Sample.Blog.Service.Posts;
+using Maktab.Sample.Blog.Service.Posts.Contracts.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -25,29 +27,26 @@ namespace Maktab.Sample.Blog.Service.Departments
 
         private readonly IDepartmentRepository _repository;
         private readonly IInfirmaryRepository _infirmaryRepository;
-        //private readonly UserManager<User> _userManager;
         private readonly InternalGrantsSettings _grants;
         private readonly InternalGrantsSettings _grantsSettings;
 
-        public DepartmentService(IDepartmentRepository repository, IInfirmaryRepository infirmaryRepository/*, UserManager<User> userManager*/, InternalGrantsSettings grants, IOptions<InternalGrantsSettings> settings)
+        public DepartmentService(IDepartmentRepository repository, IInfirmaryRepository infirmaryRepository, InternalGrantsSettings grants, IOptions<InternalGrantsSettings> settings)
         {
             _repository = repository;
             _infirmaryRepository = infirmaryRepository;
-            //_userManager = userManager;
             _grants = grants;
             _grantsSettings = settings.Value;
         }
         public async Task<GeneralResult> AddDepartmentAsync(AddDepartmentCommand command)
         {
-            //var user = await _userManager.FindByNameAsync(command.UserName);
+            
            var infirmary = await _infirmaryRepository.GetAsync(command.InfirmaryId);
-            //if (user == null)
-            //    throw new ItemNotFoundException(nameof(User));
+            
 
             if (infirmary == null)
                 throw new ItemNotFoundException(nameof(Infirmary));
 
-            var department = new Department(command.DepartmentName, command.DepartmentService/*, user.Id*/,infirmary.Id);
+            var department = new Department(command.DepartmentName, command.DepartmentService,infirmary.Id);
             await _repository.AddAsync(department);
             return new GeneralResult
             {
@@ -55,7 +54,7 @@ namespace Maktab.Sample.Blog.Service.Departments
             };
         }
 
-        public async Task DeleteDepartmentByIdAsync(Guid id/*, Guid userId*/)
+        public async Task DeleteDepartmentByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
                 throw new InvalidOperationException("Id is not valid.");
@@ -65,8 +64,7 @@ namespace Maktab.Sample.Blog.Service.Departments
             if (department == null)
                 throw new ItemNotFoundException(nameof(Department));
 
-            //if (department.AuthorId != userId)
-            //    throw new PermissionDeniedException();
+            
 
              await _repository.HardDeleteAsync(id);
         }
@@ -102,19 +100,23 @@ namespace Maktab.Sample.Blog.Service.Departments
             
         }
 
+        public async Task<GetDepartmentsListResult> GetDepartmentsListAsync(Guid infirmaryId,Paging paging)
+        {
+            var result = await _repository.GetDepartmentsListAsync(d => d.InfirmaryId == infirmaryId, paging, include: p => p.Include(x => x.Doctors));
+
+            var items = result.items.Select(d => d.MapToDepartmentArgs()).ToList();
+            return new GetDepartmentsListResult(items, result.totalRows, paging);
+        }
 
         public async Task UpdateDepartmentAsync(UpdateDepartmentCommand command)
         {
             var department = await _repository.GetAsync(command.Id, false);
-            //var user = await _userManager.FindByNameAsync(userName);
-            //if (user == null)
-            //    throw new ItemNotFoundException(nameof(User));
+            
 
             if (department == null)
                 throw new ItemNotFoundException(nameof(Department));
 
-            //if (department.AuthorId != user.Id)
-            //    throw new PermissionDeniedException();
+            
 
             department.SetDepartmentInfo(command.DepartmentName, command.DepartmentService);
 

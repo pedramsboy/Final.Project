@@ -9,6 +9,7 @@ using Maktab.Sample.Blog.Domain.Users;
 using Maktab.Sample.Blog.Service.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using Maktab.Sample.Blog.Abstraction.Presistence;
 
 namespace Maktab.Sample.Blog.Service.Posts;
 
@@ -59,24 +60,32 @@ public class PostService : IPostService
 
     public async Task<List<PostArgs>> GetAllPostsAsync(Expression<Func<Post,bool>> predicate = null)
     {
-        var posts = await _repository.QueryAsync(predicate ?? ( p => true), include: p => p.Include(x => x.Author)
-                                                                                           .Include(x => x.Comments)
-                                                                                           .Include(x => x.Likes));
+        var posts = await _repository.QueryAsync(predicate ?? ( p => true), include: p => p.Include(x => x.Author));
+                                                                                           
+                                                                                          
         return posts.Select(p => p.MapToPostArgs()).ToList();
     }
 
     public async Task<PostArgs> GetPostByIdAsync(Guid id)
     {
         var post = await _repository.GetAsync(id,
-            include: p => p.Include(x => x.Author)
-            .Include(x => x.Comments)
-            .Include(x => x.Likes));
+            include: p => p.Include(x => x.Author));
+            
+           
 
 
         if (post == null)
             throw new ItemNotFoundException(nameof(Post));
 
         return post.MapToPostArgs();
+    }
+
+    public async Task<GetPostsListResult> GetPostsListAsync(Paging paging)
+    {
+        var result = await _repository.GetPostsListAsync(paging, include: p => p.Include(x => x.Author));
+                                                                                           
+        var items = result.items.Select(p => p.MapToPostArgs()).ToList();
+        return new GetPostsListResult(items, result.totalRows, paging);
     }
 
     public async Task UpdatePostAsync(UpdatePostCommand command, string userName)

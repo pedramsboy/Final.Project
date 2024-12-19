@@ -1,6 +1,4 @@
 using Maktab.Sample.Blog.Abstraction.Domain;
-using Maktab.Sample.Blog.Domain.Comments;
-using Maktab.Sample.Blog.Domain.Likes;
 using Maktab.Sample.Blog.Domain.Users;
 
 namespace Maktab.Sample.Blog.Domain.Posts;
@@ -30,14 +28,7 @@ public class Post : BaseEntity
     /// An Instance of The User Object for Navigation Purposes
     /// </summary>
     public User Author { get; private set; }
-    /// <summary>
-    /// Each Post Can Be Consists of List of Comments
-    /// </summary>
-    public List<Comment> Comments { get; private set; } = new();
-    /// <summary>
-    /// Each Post Can Be Consists of List of Comments
-    /// </summary>
-    public List<Like> Likes { get; private set; } = new();
+    
     
     protected override void Validate()
     {

@@ -1,9 +1,11 @@
-﻿using Maktab.Sample.Blog.Abstraction.Service;
+﻿using Maktab.Sample.Blog.Abstraction.Presistence;
+using Maktab.Sample.Blog.Abstraction.Service;
 using Maktab.Sample.Blog.Abstraction.Service.Exceptions;
 using Maktab.Sample.Blog.Domain.Departments;
 using Maktab.Sample.Blog.Domain.Doctors;
 using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Service.Configurations;
+using Maktab.Sample.Blog.Service.Departments.Contracts.Results;
 using Maktab.Sample.Blog.Service.Doctors.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Doctors.Contracts.Results;
 using Microsoft.EntityFrameworkCore;
@@ -67,27 +69,35 @@ namespace Maktab.Sample.Blog.Service.Doctors
 
         public async Task<List<DoctorArgs>> GetAllDoctorsAsync(Expression<Func<Doctor, bool>> predicate)
         {
-            var doctors = await _repository.QueryAsync(predicate ?? (p => true)/*, include: p => p.Include(x => x.Prescriptions)*/);
+            var doctors = await _repository.QueryAsync(predicate ?? (p => true), include: d => d.Include(x => x.Prescriptions));
 
             return doctors.Select(p => p.MapToDoctorArgs()).ToList();
         }
 
         public async Task<List<DoctorArgs>> GetAllDoctorsByDepartmentIdAsync(Guid departmentId)
         {
-            var doctors = await _repository.QueryAsync(d => d.DepartmentId == departmentId/*, include: p => p.Include(x => x.Prescriptions)*/);
+            var doctors = await _repository.QueryAsync(d => d.DepartmentId == departmentId, include: d => d.Include(x => x.Prescriptions));
 
             return doctors.Select(d => d.MapToDoctorArgs()).ToList();
         }
 
         public async Task<DoctorArgs> GetDoctorByIdAsync(Guid id)
         {
-            var doctor = await _repository.GetAsync(id/*, include: p => p.Include(x => x.Prescriptions)*/);
+            var doctor = await _repository.GetAsync(id, include: d => d.Include(x => x.Prescriptions));
 
 
             if (doctor == null)
                 throw new ItemNotFoundException(nameof(Doctor));
 
             return doctor.MapToDoctorArgs();
+        }
+
+        public async Task<GetDoctorsListResult> GetDoctorsListAsync(Guid departmentId, Paging paging)
+        {
+            var result = await _repository.GetDoctorsListAsync(d => d.DepartmentId == departmentId, paging, include: d => d.Include(x => x.Prescriptions));
+
+            var items = result.items.Select(d => d.MapToDoctorArgs()).ToList();
+            return new GetDoctorsListResult(items, result.totalRows, paging);
         }
 
         public async Task UpdateDoctorAsync(UpdateDoctorCommand command)

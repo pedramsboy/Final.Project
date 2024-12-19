@@ -10,6 +10,6 @@ namespace Maktab.Sample.Blog.Domain.Patients
 {
     public interface IPatientRepository : IGenericRepository<Patient>
     {
-        Task<List<Patient>> SearchPatientsByTitle(string title);
+        
     }
 }

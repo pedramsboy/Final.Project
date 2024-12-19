@@ -11,7 +11,6 @@ namespace Maktab.Sample.Blog.Service.Prescriptions.Contracts.Commands
         public string Appointment { get; set; }
         public string PrescriptionDescription { get; set; }
         public string UserName { get; set; }
-        //public Guid AuthortId { get; set; }
         public Guid DoctorId { get; set; }
     }
 }

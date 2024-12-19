@@ -16,10 +16,10 @@ public class HomeController : Controller
         _postService = postService;
         _logger = logger;
     }
-    //[Authorize]
+    
     public IActionResult Index()
     {
-        //return RedirectToPage("/Posts/Index");
+       
        return View();
     }
 

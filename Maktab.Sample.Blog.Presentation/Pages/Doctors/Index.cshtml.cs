@@ -1,3 +1,4 @@
+using Maktab.Sample.Blog.Abstraction.Presistence;
 using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Presentation.Pages.Models;
 using Maktab.Sample.Blog.Service.Departments;
@@ -15,8 +16,9 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Doctors
     public class IndexModel : PageModel
     {
 
-        public List<DoctorArgs> DoctorsModel { get; set; }
+        //public List<DoctorArgs> DoctorsModel { get; set; }
 
+        public GetDoctorsListResult DoctorsModel { get; set; }
         public Guid DoctorId { get; set; }
         public Guid DepartmentId { get; set; }
 
@@ -27,11 +29,18 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Doctors
             _doctorService = doctorService;
         }
 
-        public async Task OnGetAsync(Guid departmentId)
+        public async Task OnGetAsync(Guid departmentId, [FromQuery] int pageSize = 3, [FromQuery] int pageNumber = 0)
         {
             DepartmentId = departmentId;
-            //DoctorsModel = await _doctorService.GetAllDoctorsAsync(p => true);
-            DoctorsModel = await _doctorService.GetAllDoctorsByDepartmentIdAsync(DepartmentId);
+
+            var paging = new Paging()
+            {
+                PageSize = pageSize,
+                PageNumber = pageNumber,
+            };
+
+            //DoctorsModel = await _doctorService.GetAllDoctorsByDepartmentIdAsync(DepartmentId);
+            DoctorsModel = await _doctorService.GetDoctorsListAsync(DepartmentId, paging);
         }
 
 

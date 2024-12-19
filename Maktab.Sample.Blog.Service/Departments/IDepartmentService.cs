@@ -1,4 +1,5 @@
-﻿using Maktab.Sample.Blog.Abstraction.Service;
+﻿using Maktab.Sample.Blog.Abstraction.Presistence;
+using Maktab.Sample.Blog.Abstraction.Service;
 using Maktab.Sample.Blog.Domain.Departments;
 using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Service.Departments.Contracts.Commands;
@@ -22,5 +23,6 @@ namespace Maktab.Sample.Blog.Service.Departments
         Task DeleteDepartmentByIdAsync(Guid id);
         Task<List<DepartmentArgs>> GetAllDepartmentsAsync(Expression<Func<Department, bool>> predicate);
         Task<List<DepartmentArgs>> GetAllDepartmentsByInfirmaryIdAsync(Guid infirmaryId);
+        Task<GetDepartmentsListResult> GetDepartmentsListAsync(Guid infirmaryId, Paging paging);
     }
 }

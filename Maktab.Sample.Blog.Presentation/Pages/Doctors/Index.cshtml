@@ -6,6 +6,8 @@
     Layout = "_Layout";
 }
 
+@if (User.IsInRole("Admin"))
+{
 <form method="post" asp-page-handler="Create">
     <div class="mb-3">
         <label asp-for="AddDoctorModel.FirstName" class="form-label">First Name</label>
@@ -44,22 +46,28 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+}
+
 @{
     var counter = 1;
 }
 
-@foreach (var doctor in Model.DoctorsModel)
+@foreach (var doctor in Model.DoctorsModel.Items)
 {
     <div class="card mt-2 position-relative">
-        <div class="btn-group dropstart position-absolute top-0 end-0">
-            <button type="button" class="btn btn-secondary bg-transparent border-0 text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-three-dots-vertical"></i>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" asp-page="EditDoctor" asp-route-postId="@doctor.Id" asp-route-maktab="114">Edit Doctor</a></li>
-                <li><a class="dropdown-item text-danger" onclick="ShowDeleteModal('@doctor.Id')" href="#">Delete Doctor</a></li>
-            </ul>
-        </div>
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="btn-group dropstart position-absolute top-0 end-0">
+                <button type="button" class="btn btn-secondary bg-transparent border-0 text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-page="EditDoctor" asp-route-postId="@doctor.Id" asp-route-maktab="114">Edit Doctor</a></li>
+                    <li><a class="dropdown-item text-danger" onclick="ShowDeleteModal('@doctor.Id')" href="#">Delete Doctor</a></li>
+                </ul>
+            </div>
+        }
+        
         <div class="card-img-top" style="height: 400px; background-image: url('Doctor_Pic.png'); background-repeat: no-repeat; background-position: center; background-size: cover"></div>
         <div class="card-body">
             <h5 class="card-text">@doctor.FirstName</h5>
@@ -72,6 +80,28 @@
         </div>
     </div>
 }
+
+<nav class="w-100 mt-2">
+    <div style="width: fit-content" class="mx-auto">
+        <ul class="pagination">
+            <li class="page-item @(Model.DoctorsModel.PageNumber == 0 ? "disabled" : "")">
+                <a class="page-link" asp-route-departmentId='@Model.DepartmentId' asp-page="/Doctors/Index" asp-route-pageNumber="@(Model.DoctorsModel.PageNumber - 1)" asp-route-pageSize="3">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.DoctorsModel.GetTotalPages(); i++)
+            {
+                var isActive = Model.DoctorsModel.PageNumber + 1 == i;
+
+                <li class="page-item @(isActive ? "active" : "")"><a class="page-link" asp-page="/Doctors/Index" asp-route-departmentId='@Model.DepartmentId' asp-route-pageNumber="@(i - 1)" asp-route-pageSize="3">@i</a></li>
+            }
+            <li class="page-item @(Model.DoctorsModel.PageNumber == (Model.DoctorsModel.GetTotalPages() - 1) ? "disabled" : "")">
+                <a class="page-link" asp-route-departmentId='@Model.DepartmentId' asp-page="/Doctors/Index" asp-route-pageNumber="@(Model.DoctorsModel.PageNumber + 1)" asp-route-pageSize="3">Next</a>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+
+
 <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

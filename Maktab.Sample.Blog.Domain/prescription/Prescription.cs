@@ -57,8 +57,6 @@ namespace Maktab.Sample.Blog.Domain.prescription
             if (string.IsNullOrWhiteSpace(Appointment))
                 throw new EmptyAppointmentException();
 
-            //if (string.IsNullOrWhiteSpace(PrescriptionDescription))
-            //    throw new EmptyPrescriptionDescriptionException();
 
             if (DoctorId == null || DoctorId == Guid.Empty)
                 throw new EmptyDoctorIdException();

@@ -44,7 +44,8 @@ public class UserService : IUserService
         
         if (!registerResult.Succeeded)
             throw new RegistrationFailedException(registerResult.Errors.FirstOrDefault()?.Description ?? "Registration failed");
-        
+
+        await _userManager.AddToRoleAsync(user,"NormalUser");
         return registerResult.Succeeded;
     }
 

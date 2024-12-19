@@ -11,7 +11,7 @@
 <table class="table">
     <thead>
         <tr>
-           @*  <th>Id</th> *@
+           
             <th>Appointment</th>
             <th>Prescription Description</th>
             <th>Doctor Tracking Code</th>
@@ -22,13 +22,11 @@
         @foreach (var prescription in Model.PrescriptionsModel)
         {
             <tr>
-                @* <td>@Html.DisplayFor(modelItem => prescription.Id)</td> *@
+                
                 <td>@Html.DisplayFor(modelItem => prescription.Appointment)</td>
                 <td>@Html.DisplayFor(modelItem => prescription.PrescriptionDescription)</td>
                 <td>@Html.DisplayFor(modelItem => prescription.DoctortId)</td>
-                @* <td>
-                    <a asp-action="#" asp-route-id="#">Delete</a>
-                </td> *@
+                
             </tr>
         }
 

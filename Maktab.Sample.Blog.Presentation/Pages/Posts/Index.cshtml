@@ -5,44 +5,72 @@
 @{
     Layout = "_Layout";
 }
-<form method="post" asp-page-handler="Create">
-    <div class="mb-3">
-        <label asp-for="AddPostModel.PostTitle" class="form-label">Post title</label>
-        <input asp-for="AddPostModel.PostTitle" class="form-control" id="postTitleInput">
-        <span asp-validation-for="AddPostModel.PostTitle" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="AddPostModel.PostText" class="form-label">Post text</label>
-        <input asp-for="AddPostModel.PostText" class="form-control" id="postTextInput">
-        <span asp-validation-for="AddPostModel.PostText" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+@if (User.IsInRole("Admin"))
+{
+    <form method="post" asp-page-handler="Create">
+        <div class="mb-3">
+            <label asp-for="AddPostModel.PostTitle" class="form-label">Post title</label>
+            <input asp-for="AddPostModel.PostTitle" class="form-control" id="postTitleInput">
+            <span asp-validation-for="AddPostModel.PostTitle" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="AddPostModel.PostText" class="form-label">Post text</label>
+            <input asp-for="AddPostModel.PostText" class="form-control" id="postTextInput">
+            <span asp-validation-for="AddPostModel.PostText" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+}
+
 @{
     var counter = 1;
 }
-@foreach (var post in Model.PostsModel)
+@foreach (var post in Model.PostsModel.Items)
 {
     <div class="card mt-2 position-relative">
-        <div class="btn-group dropstart position-absolute top-0 end-0">
-            <button type="button" class="btn btn-secondary bg-transparent border-0 text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-three-dots-vertical"></i>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" asp-page="EditPost" asp-route-postId="@post.Id" asp-route-maktab="114">Edit Post</a></li>
-                <li><a class="dropdown-item text-danger" onclick="ShowDeleteModal('@post.Id')" href="#">Delete Post</a></li>
-            </ul>
-        </div>
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="btn-group dropstart position-absolute top-0 end-0">
+                <button type="button" class="btn btn-secondary bg-transparent border-0 text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-page="EditPost" asp-route-postId="@post.Id" asp-route-maktab="114">Edit Post</a></li>
+                    <li><a class="dropdown-item text-danger" onclick="ShowDeleteModal('@post.Id')" href="#">Delete Post</a></li>
+                </ul>
+            </div>
+        }
+        
         <div class="card-img-top" style="height: 400px; background-image: url('Health_Picture.jpg'); background-repeat: no-repeat; background-position: center; background-size: cover"></div>
         <div class="card-body">
             <h5 class="card-title">@post.Title</h5>
             <p class="card-text">@post.Text</p>
             <p class="card-text">Author: @post.Author!.GetFullName()</p>
-            <a href="#" class="btn btn-outline-success"><i class="bi bi-hand-thumbs-up-fill"></i> Like</a>
-            <a href="#" class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-down-fill"></i> Dislike</a>
+            
         </div>
     </div>
 }
+
+<nav class="w-100 mt-2">
+    <div style="width: fit-content" class="mx-auto">
+        <ul class="pagination">
+            <li class="page-item @(Model.PostsModel.PageNumber == 0 ? "disabled" : "")">
+                <a class="page-link" asp-page="/Posts/Index" asp-route-pageNumber="@(Model.PostsModel.PageNumber - 1)" asp-route-pageSize="3">Previous</a>
+            </li>
+            @for (int i = 1; i <= Model.PostsModel.GetTotalPages(); i++)
+            {
+                var isActive = Model.PostsModel.PageNumber + 1 == i;
+
+                <li class="page-item @(isActive ? "active" : "")"><a class="page-link" asp-page="/Posts/Index" asp-route-pageNumber="@(i - 1)" asp-route-pageSize="3">@i</a></li>
+            }
+            <li class="page-item @(Model.PostsModel.PageNumber == (Model.PostsModel.GetTotalPages() - 1) ? "disabled" : "")">
+                <a class="page-link" asp-page="/Posts/Index" asp-route-pageNumber="@(Model.PostsModel.PageNumber + 1)" asp-route-pageSize="3">Next</a>
+            </li>
+        </ul>
+    </div>
+
+</nav>
+
 <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

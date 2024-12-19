@@ -1,4 +1,4 @@
-using Maktab.Sample.Blog.Domain.Comments;
+
 using Maktab.Sample.Blog.Domain.Posts;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -18,19 +18,7 @@ public static class PostModelBuilderConfiguration
             .HasForeignKey(p => p.AuthorId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        //builder.Entity<Post>()
-        //    .HasMany(p => p.Comments)
-        //    .WithOne()
-        //    .HasForeignKey(c=>c.AuthorId)
-        //    .OnDelete(DeleteBehavior.Cascade);
-
-            
-
-        //builder.Entity<Post>()
-        //    .HasMany(p => p.Likes)
-        //    .WithOne()
-        //    .HasForeignKey("PostId")
-        //    .OnDelete(DeleteBehavior.Cascade);
+        
 
         builder.Entity<Post>()
             .Property(u => u.Title)
@@ -44,10 +32,6 @@ public static class PostModelBuilderConfiguration
             .IsRequired()
             .IsUnicode();
 
-        //builder.Entity<Post>()
-        //    .Property(u => u.PostText)
-        //    .HasColumnType("text")
-        //    .IsRequired()
-        //    .IsUnicode();
+        
     }
 }

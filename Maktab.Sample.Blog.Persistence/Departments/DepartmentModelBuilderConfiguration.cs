@@ -11,13 +11,6 @@ public static class DepartmentModelBuilderConfiguration
         builder.Entity<Department>().HasQueryFilter(x => !x.IsDeleted);
         
 
-        //builder.Entity<Department>()
-        //    .HasOne(d => d.Infirmary)
-        //    .WithMany(i => i.Departments)
-        //    .HasForeignKey(d=>d.InfirmaryId)
-        //    .OnDelete(DeleteBehavior.Cascade);
-
-
         builder.Entity<Department>()
             .Property(d => d.DepartmentName)
             .HasColumnType("Nvarchar(200)")
@@ -30,10 +23,6 @@ public static class DepartmentModelBuilderConfiguration
             .IsRequired()
             .IsUnicode();
 
-        //builder.Entity<Post>()
-        //    .Property(u => u.PostText)
-        //    .HasColumnType("text")
-        //    .IsRequired()
-        //    .IsUnicode();
+     
     }
 }

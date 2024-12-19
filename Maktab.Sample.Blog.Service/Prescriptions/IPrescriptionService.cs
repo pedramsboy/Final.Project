@@ -1,4 +1,5 @@
-﻿using Maktab.Sample.Blog.Abstraction.Service;
+﻿using Maktab.Sample.Blog.Abstraction.Presistence;
+using Maktab.Sample.Blog.Abstraction.Service;
 using Maktab.Sample.Blog.Domain.Doctors;
 using Maktab.Sample.Blog.Domain.prescription;
 using Maktab.Sample.Blog.Service.Doctors.Contracts.Commands;
@@ -24,5 +25,6 @@ namespace Maktab.Sample.Blog.Service.Prescriptions
         Task<List<PrescriptionArgs>> GetAllPrescriptionsAsync(Expression<Func<Prescription, bool>> predicate);
         Task<List<PrescriptionArgs>> GetAllPrescriptionsByDoctorIdAsync(Guid doctortId);
         Task<List<PrescriptionArgs>> GetAllPrescriptionsByAuthorIdAsync(Guid authortId);
+        Task<GetPrescriptionsListResult> GetPrescriptionsListAsync(Guid doctortId, Paging paging);
     }
 }

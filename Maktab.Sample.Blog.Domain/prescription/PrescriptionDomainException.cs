@@ -32,12 +32,6 @@ namespace Maktab.Sample.Blog.Domain.prescription
         }
     }
 
-    //public class EmptyPrescriptionDescriptionException : BaseEmptyArgumentException
-    //{
-    //    public EmptyPrescriptionDescriptionException() : base("Prescription Description", 2)
-    //    {
-    //    }
-    //}
 
     public class EmptyDoctorIdException : BaseEmptyArgumentException
     {

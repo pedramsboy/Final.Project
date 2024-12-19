@@ -66,4 +66,6 @@ public class GenericRepository<T,C> : IGenericRepository<T> where T : BaseEntity
             await _dbContext.SaveChangesAsync();
         }
     }
+
+
 }

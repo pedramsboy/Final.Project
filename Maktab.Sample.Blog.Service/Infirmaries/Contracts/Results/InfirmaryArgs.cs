@@ -1,7 +1,6 @@
 ﻿using Maktab.Sample.Blog.Abstraction.Service;
 using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Domain.Posts;
-using Maktab.Sample.Blog.Service.Comments.Contracts.Results;
 using Maktab.Sample.Blog.Service.Departments.Contracts.Results;
 using Maktab.Sample.Blog.Service.Users.Contracts.Result;
 using System;
@@ -24,7 +23,7 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results
 
         public List<DepartmentArgs> Departments { get; set; } = new();
        
-       // public UserArgs? Author { get; set; }
+       
     }
 
     public static class InfirmaryArgsMapper
@@ -41,7 +40,6 @@ namespace Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results
                 Street = infirmary.Street,
                 PhoneNumber = infirmary.PhoneNumber,
                 IsAroundTheClock = infirmary.IsAroundTheClock,
-                //Author = infirmary.Author?.MapToUserArgs(),
                 Departments = infirmary.Departments.Select(d => d.MapToDepartmentArgs()).ToList(),
 
             };

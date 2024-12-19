@@ -45,7 +45,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Infirmaries
                 var command = UpdateInfirmaryModel.Adapt<UpdateInfirmaryCommand>();
                 try
                 {
-                    await _infirmaryService.UpdateInfirmaryAsync(command/*, User.Identity?.Name ?? string.Empty*/);
+                    await _infirmaryService.UpdateInfirmaryAsync(command);
                     TempData["SuccessMessage"] = "Infirmary updated successfully.";
                     return RedirectToPage("/Infirmaries/Index");
 

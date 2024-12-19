@@ -10,17 +10,7 @@ public static class InfirmaryModelBuilderConfiguration
         builder.Entity<Infirmary>().HasKey(i => i.Id);
         builder.Entity<Infirmary>().HasQueryFilter(x => !x.IsDeleted);
 
-        //builder.Entity<Infirmary>()
-        //   .HasOne(i => i.Author)
-        //   .WithMany(u => u.Infirmaries)
-        //   .HasForeignKey(i => i.AuthorId)
-        //   .OnDelete(DeleteBehavior.Cascade);
-
-        //builder.Entity<Infirmary>()
-        //    .HasMany(i => i.Departments)
-        //    .WithOne()
-        //    .HasForeignKey("InfirmaryId")
-        //    .OnDelete(DeleteBehavior.Cascade);
+        
 
 
         builder.Entity<Infirmary>()

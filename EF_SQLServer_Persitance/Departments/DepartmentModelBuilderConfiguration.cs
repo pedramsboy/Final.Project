@@ -9,11 +9,7 @@ public static class DepartmentModelBuilderConfiguration
     {
         builder.Entity<Department>().HasKey(d => d.Id);
         builder.Entity<Department>().HasQueryFilter(x => !x.IsDeleted);
-        //builder.Entity<Department>()
-            //.HasOne(d => d.Author)
-            //.WithMany(u => u.Departments)
-            //.HasForeignKey(p => p.AuthorId)
-            //.OnDelete(DeleteBehavior.Cascade);
+        
 
         builder.Entity<Department>()
             .HasOne(d => d.Infirmary)

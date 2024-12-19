@@ -16,12 +16,7 @@ namespace Maktab.Sample.Blog.Persistence.Patients
             builder.Entity<Patient>().HasKey(p => p.Id);
             builder.Entity<Patient>().HasQueryFilter(x => !x.IsDeleted);
 
-            //builder.Entity<Patient>()
-            //.HasOne(p => p.Author)
-            //.WithOne(u => u.Patient)
-            //.HasForeignKey<Patient>(p => p.AuthorId)
-            //.IsRequired()
-            //.OnDelete(DeleteBehavior.Cascade);
+            
 
             builder.Entity<Patient>()
           .HasOne(p => p.Author)

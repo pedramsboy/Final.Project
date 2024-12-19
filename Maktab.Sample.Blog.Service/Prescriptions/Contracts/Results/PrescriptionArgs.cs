@@ -17,7 +17,7 @@ namespace Maktab.Sample.Blog.Service.Prescriptions.Contracts.Results
         public string PrescriptionDescription { get; set; }
         public UserArgs? Author { get; set; }
         public Guid DoctortId { get; set; }
-       // public Guid AuthorId { get; set; }
+      
 
     }
 
@@ -33,7 +33,7 @@ namespace Maktab.Sample.Blog.Service.Prescriptions.Contracts.Results
                 PrescriptionDescription = prescription.PrescriptionDescription,
                 Author = prescription.Author?.MapToUserArgs(),
                 DoctortId=prescription.DoctorId,
-                //AuthorId=prescription.AuthorId,
+               
             };
         }
     }

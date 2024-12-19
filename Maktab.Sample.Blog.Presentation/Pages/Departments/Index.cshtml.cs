@@ -1,3 +1,4 @@
+using Maktab.Sample.Blog.Abstraction.Presistence;
 using Maktab.Sample.Blog.Domain.Infirmaries;
 using Maktab.Sample.Blog.Presentation.Pages.Models;
 using Maktab.Sample.Blog.Service.Departments;
@@ -7,6 +8,7 @@ using Maktab.Sample.Blog.Service.Infirmaries;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Commands;
 using Maktab.Sample.Blog.Service.Infirmaries.Contracts.Results;
 using Maktab.Sample.Blog.Service.Posts;
+using Maktab.Sample.Blog.Service.Posts.Contracts.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
@@ -16,8 +18,9 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
     [BindProperties]
     public class IndexModel : PageModel
     {
-        public List<DepartmentArgs> DepartmentsModel { get; set; }
+        //public List<DepartmentArgs> DepartmentsModel { get; set; }
 
+        public GetDepartmentsListResult DepartmentsModel { get; set; }
         public Guid DepartmentId { get; set; }
         public Guid InfirmaryId { get; set; }
 
@@ -28,10 +31,18 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
         {
             _departmentService = departmentService;
         }
-        public async Task OnGetAsync(Guid infirmaryId)
+
+        
+        public async Task OnGetAsync(Guid infirmaryId, [FromQuery] int pageSize = 3, [FromQuery] int pageNumber = 0)
         {
             InfirmaryId = infirmaryId;
-            DepartmentsModel = await _departmentService.GetAllDepartmentsByInfirmaryIdAsync(InfirmaryId);
+            var paging = new Paging()
+            {
+                PageSize = pageSize,
+                PageNumber = pageNumber,
+            };
+            // DepartmentsModel = await _departmentService.GetAllDepartmentsByInfirmaryIdAsync(InfirmaryId);
+            DepartmentsModel = await _departmentService.GetDepartmentsListAsync(InfirmaryId, paging);
         }
 
         public AddDepartmentModel AddDepartmentModel { get; set; }
@@ -43,7 +54,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
                 DepartmentName = AddDepartmentModel.DepartmentName,
                 DepartmentService = AddDepartmentModel.DepartmentService,
                 InfirmaryId=AddDepartmentModel.InfirmaryId,
-                //UserName = User.Identity?.Name ?? string.Empty
+                
             };
 
             var result = await _departmentService.AddDepartmentAsync(departmentCommand);
@@ -52,7 +63,7 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Departments
 
         public async Task<IActionResult> OnPostDeleteAsync()
         {
-            //var userId = new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
+            
 
             try
             {

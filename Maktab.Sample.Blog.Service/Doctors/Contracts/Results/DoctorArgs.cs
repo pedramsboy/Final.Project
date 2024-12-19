@@ -24,7 +24,7 @@ namespace Maktab.Sample.Blog.Service.Doctors.Contracts.Results
 
         public Guid DepartmentId { get; set; }
 
-        //public DepartmentArgs? Department { get; set; }
+        
         public List<PrescriptionArgs> Prescriptions { get; set; } = new();
 
     }

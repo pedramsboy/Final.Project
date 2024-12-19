@@ -15,17 +15,7 @@ public static class CommentModelBuilderConfiguration
             .HasForeignKey(p => p.AuthorId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.Entity<Post>()
-            .HasMany(p => p.Comments)
-            .WithOne()
-            .HasForeignKey("PostId")
-            .OnDelete(DeleteBehavior.Cascade);
         
-        builder.Entity<Post>()
-            .HasMany(p => p.Likes)
-            .WithOne()
-            .HasForeignKey("PostId")
-            .OnDelete(DeleteBehavior.Cascade);
         
         builder.Entity<Post>()
             .Property(u => u.Title)
@@ -39,10 +29,5 @@ public static class CommentModelBuilderConfiguration
             .IsRequired()
             .IsUnicode();
 
-        //builder.Entity<Post>()
-        //    .Property(u => u.PostText)
-        //    .HasColumnType("text")
-        //    .IsRequired()
-        //    .IsUnicode();
     }
 }

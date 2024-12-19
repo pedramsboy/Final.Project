@@ -12,6 +12,6 @@ namespace Maktab.Sample.Blog.Presentation.Pages.Models
         public string Appointment { get; set; }
         public string PrescriptionDescription { get; set; }
         public Guid DoctorId { get; set; }
-        //public Guid AuthortId { get; set; }
+        
     }
 }

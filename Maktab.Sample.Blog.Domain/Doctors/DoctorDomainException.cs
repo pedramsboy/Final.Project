@@ -60,7 +60,7 @@ namespace Maktab.Sample.Blog.Domain.Doctors
 
     public class EmptyDepartmentIdException : BaseEmptyArgumentException
     {
-        public EmptyDepartmentIdException() : base("Department Id", 5)
+        public EmptyDepartmentIdException() : base("Department Id", 6)
         {
         }
     }

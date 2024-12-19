@@ -12,7 +12,7 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
 {
     public class Infirmary : BaseEntity
     {
-        public Infirmary(string infirmaryName, string supportedInsurance, string state, string city, string street, string phoneNumber,string isAroundTheClock/*, Guid authorId*/)
+        public Infirmary(string infirmaryName, string supportedInsurance, string state, string city, string street, string phoneNumber,string isAroundTheClock)
         {
             InfirmaryName = infirmaryName;
             SupportedInsurance = supportedInsurance;
@@ -21,7 +21,6 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
             Street = street;
             PhoneNumber = phoneNumber;
             IsAroundTheClock = isAroundTheClock;
-            //AuthorId = authorId;
             Validate();
         }
 
@@ -65,15 +64,6 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
         public List<Department> Departments { get; set; } = new ();
 
 
-        ///********************* navigation properties ********************/
-        /// <summary>
-        /// Id of The User Who Created This Infirmary
-        /// </summary>
-        //public Guid AuthorId { get; private set; }
-        /// <summary>
-        /// Object Instance of The User Who Created This Infirmary
-        /// </summary>
-        //public User Author { get; private set; }
 
        
         protected override void Validate()
@@ -98,9 +88,6 @@ namespace Maktab.Sample.Blog.Domain.Infirmaries
 
             if (string.IsNullOrWhiteSpace(IsAroundTheClock))
                 throw new EmptyIsAroundTheClockException();
-
-            //if (AuthorId == null || AuthorId == Guid.Empty)
-            //    throw new EmptyAuthorIdException();
 
 
         }

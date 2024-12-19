@@ -1,7 +1,7 @@
-using Maktab.Sample.Blog.Domain.Comments;
+
 using Maktab.Sample.Blog.Domain.Departments;
+using Maktab.Sample.Blog.Domain.Doctors;
 using Maktab.Sample.Blog.Domain.Infirmaries;
-using Maktab.Sample.Blog.Domain.Likes;
 using Maktab.Sample.Blog.Domain.Patients;
 using Maktab.Sample.Blog.Domain.Posts;
 using Maktab.Sample.Blog.Domain.prescription;
@@ -11,13 +11,12 @@ namespace Maktab.Sample.Blog.Domain.Users;
 
 public class User : IdentityUser<Guid>
 {
-    private User()
-    {
-    }
+    
     public User(string firstName, string lastName)
     {
         FirstName = firstName;
         LastName = lastName;
+        Validate();
     }
     /// <summary>
     /// First Name of The User
@@ -27,16 +26,25 @@ public class User : IdentityUser<Guid>
     /// Last Name of The User
     /// </summary>
     public string LastName { get; set; }
-    
-    public List<Post> Posts { get; set; } = new();
-    public List<Comment> Comments { get; set; } = new();
-    public List<Like> Likes { get; set; } = new();
-    //public List<Infirmary> Infirmaries { get; set; } = new();
 
-    //public List<Department> Departments { get; set; } = new();
+
+
+    //********************* Navigation Properties ********************//
+
+    /// <summary>
+    /// Each User Can Write Many Posts
+    /// </summary>
+    public List<Post> Posts { get; set; } = new();
+
+    /// <summary>
+    /// Each User Can Have Many Patients
+    /// </summary>
 
     public List<Patient> Patients { get; set; } = new();
-    //public Patient? Patient { get; set; }
+
+    /// <summary>
+    /// Each User Have Many Prescriptions
+    /// </summary>
 
     public List<Prescription> Prescriptions { get; set; } = new();
 
@@ -56,4 +64,17 @@ public class User : IdentityUser<Guid>
     /// The Date Time  of The Data Has Been Deleted
     /// </summary>
     public DateTime? DeletedAt { get; set; }
+
+
+
+    protected void Validate()
+    {
+        if (string.IsNullOrWhiteSpace(FirstName))
+            throw new EmptyFirstNameException();
+
+        if (string.IsNullOrWhiteSpace(LastName))
+            throw new EmptyLastNameException();
+
+        
+    }
 }
